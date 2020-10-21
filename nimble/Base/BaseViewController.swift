@@ -22,7 +22,7 @@ class BaseViewController: BEViewController {
         view.addSubview(scrollView)
         scrollView.autoPinEdgesToSuperviewSafeArea(with: .zero, excludingEdge: .bottom)
         if #available(iOS 11, *) {
-            scrollView.autoPinBottomToSuperViewSafeAreaAvoidKeyboard()
+            scrollView.autoPinBottomToSuperViewSafeAreaAvoidKeyboard(inset: 16)
         } else {
             let bottomConstraint = AvoidingKeyboardLayoutConstraint(item: view.bottomAnchor, attribute: .bottom, relatedBy: .equal, toItem: scrollView, attribute: .bottom, multiplier: 1.0, constant: 0)
             bottomConstraint.observeKeyboardHeight()

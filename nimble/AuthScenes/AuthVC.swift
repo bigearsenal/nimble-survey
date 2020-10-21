@@ -8,6 +8,7 @@
 import Foundation
 
 class AuthVC: BaseViewController {
+    override var preferredStatusBarStyle: UIStatusBarStyle {.lightContent}
     override var padding: UIEdgeInsets {.init(top: 24, left: 24, bottom: 24, right: 24)}
     
     lazy var blurEffectView: UIVisualEffectView = {
@@ -16,7 +17,7 @@ class AuthVC: BaseViewController {
         return blurEffectView
     }()
     lazy var nimbleLogo = UIImageView(width: 167.adaptiveHeight, height: 40.adaptiveHeight, imageNamed: "nimble_logo")
-    lazy var emailField = UITextField(height: 56.adaptiveHeight, backgroundColor: UIColor.white.withAlphaComponent(0.18), cornerRadius: 10, placeholder: "Email", autocorrectionType: .no, autocapitalizationType: UITextAutocapitalizationType.none, textContentType: .emailAddress, leftView: UIView(width: 12), leftViewMode: .always, rightView: UIView(width: 12), rightViewMode: .always)
+    lazy var emailField = UITextField(height: 56.adaptiveHeight, backgroundColor: UIColor.white.withAlphaComponent(0.18), cornerRadius: 10, textColor: .white, placeholder: "Email", placeholderTextColor: .white, autocorrectionType: .no, autocapitalizationType: UITextAutocapitalizationType.none, textContentType: .emailAddress, leftView: UIView(width: 12), leftViewMode: .always, rightView: UIView(width: 12), rightViewMode: .always)
     
     override func setUp() {
         super.setUp()
