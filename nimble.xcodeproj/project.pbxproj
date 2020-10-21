@@ -15,7 +15,7 @@
 		BCB221D52540155D002D997F /* nimbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221D42540155D002D997F /* nimbleTests.swift */; };
 		BCB221E02540155D002D997F /* nimbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221DF2540155D002D997F /* nimbleUITests.swift */; };
 		BCB22216254018E1002D997F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseViewController.swift */; };
-		BCB2221B25401921002D997F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginViewController.swift */; };
+		BCB2221B25401921002D997F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginVC.swift */; };
 		BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2229025402DF6002D997F /* UIView+Extensions.swift */; };
 		BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB222982540374C002D997F /* Numeric+Extensions.swift */; };
 		BCB222A1254042C6002D997F /* AuthVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB222A0254042C6002D997F /* AuthVC.swift */; };
@@ -60,7 +60,7 @@
 		BCB221DF2540155D002D997F /* nimbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleUITests.swift; sourceTree = "<group>"; };
 		BCB221E12540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB22215254018E1002D997F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		BCB2221A25401921002D997F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BCB2221A25401921002D997F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		BCB2229025402DF6002D997F /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		BCB222982540374C002D997F /* Numeric+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extensions.swift"; sourceTree = "<group>"; };
 		BCB222A0254042C6002D997F /* AuthVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthVC.swift; sourceTree = "<group>"; };
@@ -195,7 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB222A0254042C6002D997F /* AuthVC.swift */,
-				BCB2221A25401921002D997F /* LoginViewController.swift */,
+				BCB2221A25401921002D997F /* LoginVC.swift */,
 				BCB222A52540431C002D997F /* ResetPasswordVC.swift */,
 			);
 			path = AuthScenes;
@@ -439,7 +439,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
-				BCB2221B25401921002D997F /* LoginViewController.swift in Sources */,
+				BCB2221B25401921002D997F /* LoginVC.swift in Sources */,
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */,

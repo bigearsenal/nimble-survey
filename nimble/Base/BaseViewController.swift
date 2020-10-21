@@ -15,7 +15,8 @@ class BaseViewController: BEViewController {
     
     override func setUp() {
         super.setUp()
-        view.backgroundColor = .red
+        view.backgroundColor = .white
+        
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTouch))
         view.addGestureRecognizer(tapGesture)
         // scroll view for flexible height
