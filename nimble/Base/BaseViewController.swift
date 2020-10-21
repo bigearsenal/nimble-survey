@@ -16,6 +16,8 @@ class BaseViewController: BEViewController {
     override func setUp() {
         super.setUp()
         view.backgroundColor = .red
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTouch))
+        view.addGestureRecognizer(tapGesture)
         // scroll view for flexible height
         view.addSubview(scrollView)
         scrollView.autoPinEdgesToSuperviewSafeArea(with: .zero, excludingEdge: .bottom)
@@ -29,6 +31,10 @@ class BaseViewController: BEViewController {
         
         // stackView
         scrollView.contentView.addSubview(stackView)
-        stackView.autoPinEdgesToSuperviewEdges()
+        stackView.autoPinEdgesToSuperviewEdges(with: padding)
+    }
+    
+    @objc func viewDidTouch() {
+        view.endEditing(true)
     }
 }

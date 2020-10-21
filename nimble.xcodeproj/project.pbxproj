@@ -16,6 +16,7 @@
 		BCB221E02540155D002D997F /* nimbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221DF2540155D002D997F /* nimbleUITests.swift */; };
 		BCB22216254018E1002D997F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseViewController.swift */; };
 		BCB2221B25401921002D997F /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginViewController.swift */; };
+		BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2229025402DF6002D997F /* UIView+Extensions.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -57,6 +58,7 @@
 		BCB221E12540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB22215254018E1002D997F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BCB2221A25401921002D997F /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		BCB2229025402DF6002D997F /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -137,6 +139,7 @@
 		BCB221BC2540155C002D997F /* nimble */ = {
 			isa = PBXGroup;
 			children = (
+				BCB2228F25402DE4002D997F /* Extensions */,
 				BCB22211254018C0002D997F /* Base */,
 				BCB221BD2540155C002D997F /* AppDelegate.swift */,
 				BCB2221A25401921002D997F /* LoginViewController.swift */,
@@ -171,6 +174,14 @@
 				BCB22215254018E1002D997F /* BaseViewController.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		BCB2228F25402DE4002D997F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				BCB2229025402DF6002D997F /* UIView+Extensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -412,6 +423,7 @@
 			files = (
 				BCB2221B25401921002D997F /* LoginViewController.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
+				BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */,
 				BCB22216254018E1002D997F /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
