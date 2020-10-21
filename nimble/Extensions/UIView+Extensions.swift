@@ -29,4 +29,16 @@ extension UIView {
         self.autoPinEdgesToSuperviewEdges(with: inset)
         return view
     }
+    
+    @discardableResult
+    func onTap(_ target: Any?, action: Selector) -> Self {
+        if self is UIButton {
+            (self as? UIButton)?.addTarget(target, action: action, for: .touchUpInside)
+            return self
+        }
+        let tap = UITapGestureRecognizer(target: target, action: action)
+        addGestureRecognizer(tap)
+        isUserInteractionEnabled = true
+        return self
+    }
 }
