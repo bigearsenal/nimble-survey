@@ -8,14 +8,17 @@
 import Foundation
 
 class LoginViewController: BaseViewController {
+    override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.hidden}
     override var padding: UIEdgeInsets {.init(top: 24, left: 24, bottom: 24, right: 24)}
     
+    // MARK: - Subviews
     lazy var nimbleLogo = UIImageView(width: 167.adaptiveHeight, height: 40.adaptiveHeight, imageNamed: "nimble_logo")
     lazy var emailField = UITextField(height: 56.adaptiveHeight, backgroundColor: UIColor.white.withAlphaComponent(0.18), cornerRadius: 10, placeholder: "Email", autocorrectionType: .no, autocapitalizationType: UITextAutocapitalizationType.none, textContentType: .emailAddress, leftView: UIView(width: 12), leftViewMode: .always, rightView: UIView(width: 12), rightViewMode: .always)
     lazy var passwordField = UITextField(height: 56.adaptiveHeight, backgroundColor: UIColor.white.withAlphaComponent(0.18), cornerRadius: 10, placeholder: "Password", autocorrectionType: .no, spellCheckingType: .no, isSecureTextEntry: true, horizontalPadding: 12, rightView: forgotButton.padding(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)), rightViewMode: .always)
     lazy var loginButton = UIButton(height: 56.adaptiveHeight, backgroundColor: .white, cornerRadius: 10, label: "Login", labelFont: .systemFont(ofSize: 17, weight: .semibold), textColor: .black)
     lazy var forgotButton = UIButton(label: "Forgot?", textColor: UIColor.white.withAlphaComponent(0.5))
     
+    // MARK: - Methods
     override func setUp() {
         super.setUp()
         // background
@@ -38,6 +41,12 @@ class LoginViewController: BaseViewController {
         animate()
     }
     
+    override func bind() {
+        super.bind()
+        
+    }
+    
+    // MARK: - Helpers
     func animate() {
         // prepare
         let blurEffect = UIBlurEffect(style: .dark)
