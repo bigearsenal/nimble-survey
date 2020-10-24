@@ -6,19 +6,35 @@
 //
 
 import UIKit
+import RxSwift
 @_exported import BEPureLayout
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window : UIWindow?
+    let disposeBag = DisposeBag()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
-        let loginVC = LoginVC()
-        self.window?.rootViewController = UINavigationController(rootViewController: loginVC)
         self.window?.makeKeyAndVisible()
+        
+        // observe AuthState
+        NimbleSurveySDK.shared.authState
+            .distinctUntilChanged()
+            .subscribe(onNext: { state in
+                let rootVC: UIViewController
+                switch state {
+                case .authorized:
+                    rootVC = UINavigationController(rootViewController: BaseViewController())
+                case .unauthorized:
+                    rootVC = UINavigationController(rootViewController: LoginVC())
+                }
+                self.window?.rootViewController = rootVC
+            })
+            .disposed(by: disposeBag)
+
         return true
     }
 

@@ -20,7 +20,7 @@ extension NimbleSurveySDK {
         
         static var unknown: Error {Error(detail: nil, code: nil, source: nil)}
         
-        var localizedDescription: String {detail ?? ""}
+        var localizedDescription: String {(detail ?? "") + (code != nil ? ", code: \(code!)": "")}
     }
 }
 
