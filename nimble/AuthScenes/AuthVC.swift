@@ -38,7 +38,7 @@ class AuthVC: BaseViewController {
         stackView.addArrangedSubview(nimbleLogo.centeredHorizontallyView)
     }
     
-    func createActionButton(label: String) -> UIButton {
-        UIButton(height: 56.adaptiveHeight, backgroundColor: .white, cornerRadius: 10, label: label, labelFont: .systemFont(ofSize: 17, weight: .semibold), textColor: .black)
+    func createActionButton(label: String) -> BaseButton {
+        BaseButton(height: 56.adaptiveHeight, backgroundColor: .white, cornerRadius: 10, label: label, labelFont: .systemFont(ofSize: 17, weight: .semibold), textColor: .black)
     }
 }

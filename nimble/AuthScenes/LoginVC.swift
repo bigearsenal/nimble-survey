@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 class LoginVC: AuthVC {
     override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.hidden}
@@ -31,15 +33,22 @@ class LoginVC: AuthVC {
     override func bind() {
         super.bind()
         
+        // drive login button
+        Observable.combineLatest(
+            emailField.rx.text.orEmpty.map {NSPredicate.email.evaluate(with: $0)},
+            passwordField.rx.text.orEmpty.map {$0.count > 3} // password must contains at least 3 characters
+        )
+            .map {$0 && $1}
+            .asDriver(onErrorJustReturn: false)
+            .drive(loginButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+            
     }
     
     // MARK: - Actions
     @objc func buttonForgotDidTouch() {
-        self.view.endEditing(true)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
-            let vc = ResetPasswordVC()
-            self.show(vc, sender: nil)
-        }
+        let vc = ResetPasswordVC()
+        self.show(vc, sender: nil)
     }
     
     // MARK: - Helpers

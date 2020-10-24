@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import RxCocoa
 
 class ResetPasswordVC: AuthVC {
     override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.normal(translucent: true, backgroundColor: .clear, textColor: .white)}
@@ -22,6 +23,11 @@ class ResetPasswordVC: AuthVC {
     
     override func bind() {
         super.bind()
+        emailField.rx.text.orEmpty
+            .map {NSPredicate.email.evaluate(with: $0)}
+            .asDriver(onErrorJustReturn: false)
+            .drive(resetButton.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
     
 }
