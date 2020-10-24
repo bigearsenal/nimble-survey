@@ -11,6 +11,7 @@ import RxCocoa
 class ResetPasswordVC: AuthVC {
     override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.normal(translucent: true, backgroundColor: .clear, textColor: .white)}
     lazy var resetButton = createActionButton(label: "Reset")
+        .onTap(self, action: #selector(resetButtonDidTouch))
     
     override func setUp() {
         super.setUp()
@@ -30,4 +31,15 @@ class ResetPasswordVC: AuthVC {
             .disposed(by: disposeBag)
     }
     
+    @objc func resetButtonDidTouch() {
+        UIApplication.shared.keyWindow?.showIndetermineHudWithMessage("Sending request...")
+        NimbleSurveySDK.shared.resetPassword(email: emailField.text!)
+            .subscribe { (message) in
+                UIApplication.shared.keyWindow?.hideHud()
+                // TODO: show notification panel
+            } onError: { (error) in
+                UIApplication.shared.keyWindow?.hideHud()
+            }
+            .disposed(by: disposeBag)
+    }
 }

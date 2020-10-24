@@ -31,6 +31,7 @@
 		BCEA07F3254441D40006E4C3 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F2254441D40006E4C3 /* MBProgressHUD */; };
 		BCEA07F92544728A0006E4C3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F82544728A0006E4C3 /* KeychainSwift */; };
 		BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07FD254475F20006E4C3 /* KeychainManager.swift */; };
+		BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		BCEA0713254403B70006E4C3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		BCEA071B254403C80006E4C3 /* ResponseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseErrors.swift; sourceTree = "<group>"; };
 		BCEA07FD254475F20006E4C3 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
+		BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -208,6 +210,7 @@
 				BCB2229025402DF6002D997F /* UIView+Extensions.swift */,
 				BCB222982540374C002D997F /* Numeric+Extensions.swift */,
 				BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */,
+				BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -516,6 +519,7 @@
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */,
 				BCEA0714254403B70006E4C3 /* Response.swift in Sources */,
+				BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */,
 				BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */,
 				BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */,
 				BCB22216254018E1002D997F /* BaseViewController.swift in Sources */,
