@@ -6,22 +6,26 @@
 //
 
 import Foundation
+import RxSwift
 
 struct NimbleSurveySDK {
     // MARK: - Properties
-    let endpoint: String
+    let host: String
     let clientId: String
     let clientSecret: String
+    var apiEndpoint: String {
+        host + "/api/v1"
+    }
     
     // MARK: - Singleton
     static let shared = NimbleSurveySDK()
     private init() {
         #if DEBUG
-        endpoint = "https://nimble-survey-web-staging.herokuapp.com/"
-        clientId = ""
-        clientSecret = ""
+        host = "https://nimble-survey-web-staging.herokuapp.com"
+        clientId = "ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE"
+        clientSecret = "lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU"
         #else
-        endpoint = "https://survey-api.nimblehq.co/"
+        host = "https://survey-api.nimblehq.co"
         clientId = "ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE"
         clientSecret = "lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU"
         #endif
