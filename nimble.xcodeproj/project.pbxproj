@@ -225,8 +225,8 @@
 		BCEA06FF2543FF480006E4C3 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
 				BCEA07FD254475F20006E4C3 /* KeychainManager.swift */,
+				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
 				BCEA0712254401CA0006E4C3 /* Models */,
 			);
 			path = Services;

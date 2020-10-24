@@ -52,13 +52,7 @@ class LoginVC: AuthVC {
     }
     
     @objc func buttonLoginDidTouch() {
-        NimbleSurveySDK.shared.loginWithEmail(emailField.text!, password: passwordField.text!)
-            .subscribe { (token) in
-                
-            } onError: { (error) in
-                
-            }
-
+        
     }
     
     // MARK: - Helpers
