@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,7 +12,6 @@
 		BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221BD2540155C002D997F /* AppDelegate.swift */; };
 		BCB221C72540155D002D997F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C62540155D002D997F /* Assets.xcassets */; };
 		BCB221CA2540155D002D997F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C82540155D002D997F /* LaunchScreen.storyboard */; };
-		BCB221D52540155D002D997F /* nimbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221D42540155D002D997F /* nimbleTests.swift */; };
 		BCB221E02540155D002D997F /* nimbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221DF2540155D002D997F /* nimbleUITests.swift */; };
 		BCB22216254018E1002D997F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseViewController.swift */; };
 		BCB2221B25401921002D997F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginVC.swift */; };
@@ -22,6 +21,16 @@
 		BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB222A52540431C002D997F /* ResetPasswordVC.swift */; };
 		BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */; };
 		BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06EE2543FC020006E4C3 /* BaseButton.swift */; };
+		BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
+		BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
+		BCEA0714254403B70006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
+		BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
+		BCEA072C254406140006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
+		BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
+		BCEA07B8254438360006E4C3 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07B7254438360006E4C3 /* RxAlamofire */; };
+		BCEA07F3254441D40006E4C3 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F2254441D40006E4C3 /* MBProgressHUD */; };
+		BCEA07F92544728A0006E4C3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F82544728A0006E4C3 /* KeychainSwift */; };
+		BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07FD254475F20006E4C3 /* KeychainManager.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +65,6 @@
 		BCB221C92540155D002D997F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCB221CB2540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB221D02540155D002D997F /* nimbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nimbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCB221D42540155D002D997F /* nimbleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleTests.swift; sourceTree = "<group>"; };
 		BCB221D62540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB221DB2540155D002D997F /* nimbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nimbleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB221DF2540155D002D997F /* nimbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleUITests.swift; sourceTree = "<group>"; };
@@ -69,6 +77,10 @@
 		BCB222A52540431C002D997F /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Extensions.swift"; sourceTree = "<group>"; };
 		BCEA06EE2543FC020006E4C3 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveySDK.swift; sourceTree = "<group>"; };
+		BCEA0713254403B70006E4C3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		BCEA071B254403C80006E4C3 /* ResponseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseErrors.swift; sourceTree = "<group>"; };
+		BCEA07FD254475F20006E4C3 /* KeychainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainManager.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -78,7 +90,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCEA07F3254441D40006E4C3 /* MBProgressHUD in Frameworks */,
 				79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */,
+				BCEA07F92544728A0006E4C3 /* KeychainSwift in Frameworks */,
+				BCEA07B8254438360006E4C3 /* RxAlamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +164,7 @@
 		BCB221BC2540155C002D997F /* nimble */ = {
 			isa = PBXGroup;
 			children = (
+				BCEA06FF2543FF480006E4C3 /* Services */,
 				BCB22211254018C0002D997F /* Vendor */,
 				BCB2228F25402DE4002D997F /* Extensions */,
 				BCB222AA25404323002D997F /* AuthScenes */,
@@ -163,7 +179,6 @@
 		BCB221D32540155D002D997F /* nimbleTests */ = {
 			isa = PBXGroup;
 			children = (
-				BCB221D42540155D002D997F /* nimbleTests.swift */,
 				BCB221D62540155D002D997F /* Info.plist */,
 			);
 			path = nimbleTests;
@@ -207,6 +222,25 @@
 			path = AuthScenes;
 			sourceTree = "<group>";
 		};
+		BCEA06FF2543FF480006E4C3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
+				BCEA07FD254475F20006E4C3 /* KeychainManager.swift */,
+				BCEA0712254401CA0006E4C3 /* Models */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		BCEA0712254401CA0006E4C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BCEA0713254403B70006E4C3 /* Response.swift */,
+				BCEA071B254403C80006E4C3 /* ResponseErrors.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -225,6 +259,11 @@
 			dependencies = (
 			);
 			name = nimble;
+			packageProductDependencies = (
+				BCEA07B7254438360006E4C3 /* RxAlamofire */,
+				BCEA07F2254441D40006E4C3 /* MBProgressHUD */,
+				BCEA07F82544728A0006E4C3 /* KeychainSwift */,
+			);
 			productName = nimble;
 			productReference = BCB221BA2540155C002D997F /* nimble.app */;
 			productType = "com.apple.product-type.application";
@@ -237,7 +276,7 @@
 				BCB221CC2540155D002D997F /* Sources */,
 				BCB221CD2540155D002D997F /* Frameworks */,
 				BCB221CE2540155D002D997F /* Resources */,
-				8230848252413E70085FA912 /* [CP] Embed Pods Frameworks */,
+				BF98BD22A5CD4602448A49A3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -300,6 +339,11 @@
 				Base,
 			);
 			mainGroup = BCB221B12540155C002D997F;
+			packageReferences = (
+				BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */,
+				BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
+				BCEA07F72544728A0006E4C3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
+			);
 			productRefGroup = BCB221BB2540155C002D997F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -394,23 +438,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nimble/Pods-nimble-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8230848252413E70085FA912 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9877B2ED5C77C44B3769D4A9 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -431,6 +458,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BF98BD22A5CD4602448A49A3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-nimbleTests/Pods-nimbleTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C89D997D09846F89542664A2 /* [CP] Check Pods Manifest.lock */ = {
@@ -462,12 +506,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */,
 				BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */,
+				BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */,
+				BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
 				BCB2221B25401921002D997F /* LoginVC.swift in Sources */,
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */,
+				BCEA0714254403B70006E4C3 /* Response.swift in Sources */,
 				BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */,
 				BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */,
 				BCB22216254018E1002D997F /* BaseViewController.swift in Sources */,
@@ -478,7 +526,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB221D52540155D002D997F /* nimbleTests.swift in Sources */,
+				BCEA072C254406140006E4C3 /* Response.swift in Sources */,
+				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
+				BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -803,6 +853,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.2;
+			};
+		};
+		BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/jdg/MBProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+		BCEA07F72544728A0006E4C3 /* XCRemoteSwiftPackageReference "keychain-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/keychain-swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 19.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCEA07B7254438360006E4C3 /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
+		};
+		BCEA07F2254441D40006E4C3 /* MBProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
+			productName = MBProgressHUD;
+		};
+		BCEA07F82544728A0006E4C3 /* KeychainSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCEA07F72544728A0006E4C3 /* XCRemoteSwiftPackageReference "keychain-swift" */;
+			productName = KeychainSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCB221B22540155C002D997F /* Project object */;
 }
