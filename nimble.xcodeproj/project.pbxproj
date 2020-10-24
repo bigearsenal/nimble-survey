@@ -24,6 +24,10 @@
 		BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06EE2543FC020006E4C3 /* BaseButton.swift */; };
 		BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
 		BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
+		BCEA0714254403B70006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
+		BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
+		BCEA072C254406140006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
+		BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +76,8 @@
 		BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Extensions.swift"; sourceTree = "<group>"; };
 		BCEA06EE2543FC020006E4C3 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveySDK.swift; sourceTree = "<group>"; };
+		BCEA0713254403B70006E4C3 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		BCEA071B254403C80006E4C3 /* ResponseErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseErrors.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -215,8 +221,18 @@
 			isa = PBXGroup;
 			children = (
 				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
+				BCEA0712254401CA0006E4C3 /* Models */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		BCEA0712254401CA0006E4C3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BCEA0713254403B70006E4C3 /* Response.swift */,
+				BCEA071B254403C80006E4C3 /* ResponseErrors.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,12 +491,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */,
+				BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */,
 				BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
 				BCB2221B25401921002D997F /* LoginVC.swift in Sources */,
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */,
+				BCEA0714254403B70006E4C3 /* Response.swift in Sources */,
 				BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */,
 				BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */,
 				BCB22216254018E1002D997F /* BaseViewController.swift in Sources */,
@@ -492,7 +510,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCB221D52540155D002D997F /* NimbleSurveySDKTests.swift in Sources */,
+				BCEA072C254406140006E4C3 /* Response.swift in Sources */,
 				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
+				BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
