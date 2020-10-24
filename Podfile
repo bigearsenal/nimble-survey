@@ -8,7 +8,6 @@ target 'nimble' do
   # Pods for nimble
   pod 'BEPureLayout', :git => "https://github.com/bigearsenal/BEPureLayout.git"
   pod 'Action'
-  pod 'ListPlaceholder'
   
   target 'nimbleTests' do
     inherit! :search_paths
