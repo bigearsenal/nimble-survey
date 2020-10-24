@@ -8,11 +8,8 @@
 import Foundation
 
 extension NimbleSurveySDK {
-    struct ResponseNoBody: Decodable {}
-    
-    // MARK: - ResponseData
     struct Response<T: Decodable>: Decodable {
-        let data: ResponseData<T>
+        let data: ResponseData<T>?
     }
     struct ResponseData<T: Decodable>: Decodable {
         let id: Int
@@ -20,22 +17,12 @@ extension NimbleSurveySDK {
         let attributes: T
     }
     
-    struct ResponseToken: Decodable {
+    struct ResponseToken: Codable {
         let access_token: String
         let token_type: String
         let expires_in: UInt
         let refresh_token: String
         let created_at: UInt
-    }
-    
-    // MARK: - ResponseLogout
-    struct ResponseLogout: Decodable {
-        
-    }
-    
-    // MARK: - ResponseMeta
-    struct ResponseMeta: Decodable {
-        
     }
 }
 

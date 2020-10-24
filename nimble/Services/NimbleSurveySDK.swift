@@ -7,10 +7,15 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import Alamofire
 import RxAlamofire
 
 struct NimbleSurveySDK {
+    enum AuthState {
+        case initalizing, authorized, unauthorized
+    }
+    
     // MARK: - Properties
     let host: String
     let clientId: String
@@ -18,6 +23,7 @@ struct NimbleSurveySDK {
     var apiEndpoint: String {
         host + "/api/v1"
     }
+    let authState = BehaviorRelay<AuthState>(value: .initalizing)
     
     // MARK: - Singleton
     static let shared = NimbleSurveySDK()
@@ -34,8 +40,8 @@ struct NimbleSurveySDK {
     }
     
     // MARK: - Methods
-    func loginWithEmail(_ email: String, password: String) -> Single<ResponseToken> {
-        request(
+    func loginWithEmail(_ email: String, password: String) -> Completable {
+        let req = request(
             method: .post,
             path: "/oauth/token",
             parameters: [
@@ -44,9 +50,25 @@ struct NimbleSurveySDK {
                 "password": password
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseToken>.self
+            decodedTo: Response<ResponseToken>.self,
+            retryOnTokenExpired: false
         )
-        .map {$0.data.attributes}
+        return handleTokenRequest(req)
+    }
+    
+    private func refreshToken() -> Completable {
+        let req = request(
+            method: .post,
+            path: "/oauth/token",
+            parameters: [
+                "grant_type": "refresh_token",
+                "refresh_token": KeychainManager.token?.refresh_token ?? ""
+            ],
+            authorizationRequired: false,
+            decodedTo: Response<ResponseToken>.self,
+            retryOnTokenExpired: false
+        )
+        return handleTokenRequest(req)
     }
     
     // MARK: - Helper
@@ -54,10 +76,18 @@ struct NimbleSurveySDK {
         apiEndpoint + path
     }
     
-    func request<T: Decodable>(method: HTTPMethod, path: String, parameters: [String: Any]?, authorizationRequired: Bool = true, shouldAddClientInfo: Bool = true, decodedTo: T.Type) -> Single<T>{
+    func request<T: Decodable>(
+        method: HTTPMethod,
+        path: String,
+        parameters: [String: Any]?,
+        authorizationRequired: Bool = true,
+        shouldAddClientInfo: Bool = true,
+        decodedTo: T.Type,
+        retryOnTokenExpired: Bool = true
+    ) -> Single<T>{
         var headers: HTTPHeaders = []
-        if authorizationRequired {
-            headers = [.authorization(bearerToken: "")]
+        if authorizationRequired, let token = KeychainManager.token?.access_token {
+            headers = [.authorization(bearerToken: token)]
         }
         var parameters = parameters
         if shouldAddClientInfo {
@@ -65,17 +95,52 @@ struct NimbleSurveySDK {
             parameters?["client_secret"] = clientSecret as NSString
         }
         
-        return data(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
-            .debug()
+        return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
+            .responseData()
+            .map {(response, data) -> T in
+                guard (200..<300).contains(response.statusCode) else {
+                    // Decode errror
+                    throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
+                }
+                
+                return try JSONDecoder().decode(T.self, from: data)
+            }
             .take(1)
             .asSingle()
-            .do(onSuccess: { (data) in
-                #if DEBUG
-                if let string = String(data: data, encoding: .utf8) {
-                    print(string)
+            .catchError {
+                if let error = $0 as? Error {
+                    // Retry
+                    if error.code == "invalid_token" && retryOnTokenExpired {
+                        return self.refreshToken()
+                            .andThen(
+                                self.request(
+                                    method: method,
+                                    path: path,
+                                    parameters: parameters,
+                                    authorizationRequired: authorizationRequired,
+                                    shouldAddClientInfo: shouldAddClientInfo,
+                                    decodedTo: decodedTo,
+                                    retryOnTokenExpired: false
+                                )
+                            )
+                    }
                 }
-                #endif
+                throw $0
+            }
+    }
+    
+    private func handleTokenRequest(_ request: Single<Response<ResponseToken>>) -> Completable {
+        request
+            .map { result -> ResponseToken in
+                guard let token = result.data?.attributes else {
+                    throw Error.unknown
+                }
+                try KeychainManager.saveToken(token)
+                return token
+            }
+            .do(onSuccess: { _ in
+                authState.accept(.authorized)
             })
-            .map {try JSONDecoder().decode(T.self, from: $0)}
+            .asCompletable()
     }
 }

@@ -8,20 +8,19 @@
 import Foundation
 
 extension NimbleSurveySDK {
-    // MARK: - Nested type
-    enum Error: Swift.Error {
-        case unauthorized(errors: [ResponseError])
-        case unknown
-    }
-    
+    // MARK: - Nested type    
     struct ResponseErrors: Decodable {
-        var errors: [ResponseError]?
+        var errors: [Error]?
     }
 
-    struct ResponseError: Decodable {
+    struct Error: Swift.Error, Decodable {
         let detail: String?
         let code: String?
         let source: String?
+        
+        static var unknown: Error {Error(detail: nil, code: nil, source: nil)}
+        
+        var localizedDescription: String {detail ?? ""}
     }
 }
 

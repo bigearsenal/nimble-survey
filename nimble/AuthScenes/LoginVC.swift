@@ -15,6 +15,7 @@ class LoginVC: AuthVC {
     // MARK: - Subviews
     lazy var passwordField = UITextField(height: 56.adaptiveHeight, backgroundColor: UIColor.white.withAlphaComponent(0.18), cornerRadius: 10, textColor: .white, placeholder: "Password", placeholderTextColor: .white, autocorrectionType: .no, spellCheckingType: .no, isSecureTextEntry: true, horizontalPadding: 12, rightView: forgotButton.padding(UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)), rightViewMode: .always)
     lazy var loginButton = createActionButton(label: "Login")
+        .onTap(self, action: #selector(buttonLoginDidTouch))
     lazy var forgotButton = UIButton(label: "Forgot?", textColor: UIColor.white.withAlphaComponent(0.5))
         .onTap(self, action: #selector(buttonForgotDidTouch))
     
@@ -42,13 +43,22 @@ class LoginVC: AuthVC {
             .asDriver(onErrorJustReturn: false)
             .drive(loginButton.rx.isEnabled)
             .disposed(by: disposeBag)
-            
     }
     
     // MARK: - Actions
     @objc func buttonForgotDidTouch() {
         let vc = ResetPasswordVC()
         self.show(vc, sender: nil)
+    }
+    
+    @objc func buttonLoginDidTouch() {
+        NimbleSurveySDK.shared.loginWithEmail(emailField.text!, password: passwordField.text!)
+            .subscribe { (token) in
+                
+            } onError: { (error) in
+                
+            }
+
     }
     
     // MARK: - Helpers

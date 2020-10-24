@@ -7,13 +7,12 @@ target 'nimble' do
 
   # Pods for nimble
   pod 'BEPureLayout', :git => "https://github.com/bigearsenal/BEPureLayout.git"
-  pod 'RxCocoa', '6.0.0-rc.1'
-
+  pod 'Action'
+  
   target 'nimbleTests' do
     inherit! :search_paths
     # Pods for testing
-    pod 'RxBlocking', '6.0.0-rc.1'
-    pod 'RxTest', '6.0.0-rc.1'
+    pod 'RxTest'
   end
 
   target 'nimbleUITests' do
