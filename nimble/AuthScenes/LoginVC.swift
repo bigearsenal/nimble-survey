@@ -52,7 +52,15 @@ class LoginVC: AuthVC {
     }
     
     @objc func buttonLoginDidTouch() {
-        
+        UIApplication.shared.keyWindow?.showIndetermineHudWithMessage("Logging you in...")
+        NimbleSurveySDK.shared.loginWithEmail(emailField.text!, password: passwordField.text!)
+            .subscribe(onCompleted: {
+                UIApplication.shared.keyWindow?.hideHud()
+            }, onError: { (error) in
+                UIApplication.shared.keyWindow?.hideHud()
+                self.showError(error)
+            })
+            .disposed(by: disposeBag)
     }
     
     // MARK: - Helpers

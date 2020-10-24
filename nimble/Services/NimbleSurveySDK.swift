@@ -12,7 +12,7 @@ import Alamofire
 import RxAlamofire
 
 struct NimbleSurveySDK {
-    enum AuthState {
+    enum AuthState: Equatable {
         case authorized, unauthorized
     }
     
