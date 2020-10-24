@@ -7,7 +7,6 @@ target 'nimble' do
 
   # Pods for nimble
   pod 'BEPureLayout', :git => "https://github.com/bigearsenal/BEPureLayout.git"
-  pod 'RxSwift', '6.0.0-rc.1'
   pod 'RxCocoa', '6.0.0-rc.1'
 
   target 'nimbleTests' do

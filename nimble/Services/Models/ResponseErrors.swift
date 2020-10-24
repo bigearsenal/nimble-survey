@@ -11,6 +11,7 @@ extension NimbleSurveySDK {
     // MARK: - Nested type
     enum Error: Swift.Error {
         case unauthorized(errors: [ResponseError])
+        case unknown
     }
     
     struct ResponseErrors: Decodable {

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -28,6 +28,7 @@
 		BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
 		BCEA072C254406140006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
 		BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
+		BCEA075E2544151E0006E4C3 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA075D2544151E0006E4C3 /* RxAlamofire */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -88,6 +89,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */,
+				BCEA075E2544151E0006E4C3 /* RxAlamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +255,9 @@
 			dependencies = (
 			);
 			name = nimble;
+			packageProductDependencies = (
+				BCEA075D2544151E0006E4C3 /* RxAlamofire */,
+			);
 			productName = nimble;
 			productReference = BCB221BA2540155C002D997F /* nimble.app */;
 			productType = "com.apple.product-type.application";
@@ -328,6 +333,9 @@
 				Base,
 			);
 			mainGroup = BCB221B12540155C002D997F;
+			packageReferences = (
+				BCEA075C2544151E0006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */,
+			);
 			productRefGroup = BCB221BB2540155C002D997F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -837,6 +845,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BCEA075C2544151E0006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.6.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BCEA075D2544151E0006E4C3 /* RxAlamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BCEA075C2544151E0006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */;
+			productName = RxAlamofire;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BCB221B22540155C002D997F /* Project object */;
 }
