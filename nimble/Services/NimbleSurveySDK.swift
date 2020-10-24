@@ -13,7 +13,7 @@ import RxAlamofire
 
 struct NimbleSurveySDK {
     enum AuthState {
-        case initalizing, authorized, unauthorized
+        case authorized, unauthorized
     }
     
     // MARK: - Properties
@@ -23,7 +23,7 @@ struct NimbleSurveySDK {
     var apiEndpoint: String {
         host + "/api/v1"
     }
-    let authState = BehaviorRelay<AuthState>(value: .initalizing)
+    let authState: BehaviorRelay<AuthState>
     
     // MARK: - Singleton
     static let shared = NimbleSurveySDK()
@@ -37,6 +37,8 @@ struct NimbleSurveySDK {
         clientId = "ofzl-2h5ympKa0WqqTzqlVJUiRsxmXQmt5tkgrlWnOE"
         clientSecret = "lMQb900L-mTeU-FVTCwyhjsfBwRCxwwbCitPob96cuU"
         #endif
+        
+        authState = BehaviorRelay<AuthState>(value: KeychainManager.token == nil ? .unauthorized: .authorized)
     }
     
     // MARK: - Methods
