@@ -12,7 +12,7 @@
 		BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221BD2540155C002D997F /* AppDelegate.swift */; };
 		BCB221C72540155D002D997F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C62540155D002D997F /* Assets.xcassets */; };
 		BCB221CA2540155D002D997F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C82540155D002D997F /* LaunchScreen.storyboard */; };
-		BCB221D52540155D002D997F /* nimbleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221D42540155D002D997F /* nimbleTests.swift */; };
+		BCB221D52540155D002D997F /* NimbleSurveySDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221D42540155D002D997F /* NimbleSurveySDKTests.swift */; };
 		BCB221E02540155D002D997F /* nimbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221DF2540155D002D997F /* nimbleUITests.swift */; };
 		BCB22216254018E1002D997F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseViewController.swift */; };
 		BCB2221B25401921002D997F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginVC.swift */; };
@@ -22,6 +22,8 @@
 		BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB222A52540431C002D997F /* ResetPasswordVC.swift */; };
 		BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */; };
 		BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06EE2543FC020006E4C3 /* BaseButton.swift */; };
+		BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
+		BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +58,7 @@
 		BCB221C92540155D002D997F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCB221CB2540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB221D02540155D002D997F /* nimbleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nimbleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BCB221D42540155D002D997F /* nimbleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleTests.swift; sourceTree = "<group>"; };
+		BCB221D42540155D002D997F /* NimbleSurveySDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveySDKTests.swift; sourceTree = "<group>"; };
 		BCB221D62540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB221DB2540155D002D997F /* nimbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nimbleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB221DF2540155D002D997F /* nimbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleUITests.swift; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 		BCB222A52540431C002D997F /* ResetPasswordVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordVC.swift; sourceTree = "<group>"; };
 		BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSPredicate+Extensions.swift"; sourceTree = "<group>"; };
 		BCEA06EE2543FC020006E4C3 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NimbleSurveySDK.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -149,6 +152,7 @@
 		BCB221BC2540155C002D997F /* nimble */ = {
 			isa = PBXGroup;
 			children = (
+				BCEA06FF2543FF480006E4C3 /* Services */,
 				BCB22211254018C0002D997F /* Vendor */,
 				BCB2228F25402DE4002D997F /* Extensions */,
 				BCB222AA25404323002D997F /* AuthScenes */,
@@ -163,7 +167,7 @@
 		BCB221D32540155D002D997F /* nimbleTests */ = {
 			isa = PBXGroup;
 			children = (
-				BCB221D42540155D002D997F /* nimbleTests.swift */,
+				BCB221D42540155D002D997F /* NimbleSurveySDKTests.swift */,
 				BCB221D62540155D002D997F /* Info.plist */,
 			);
 			path = nimbleTests;
@@ -205,6 +209,14 @@
 				BCB222A52540431C002D997F /* ResetPasswordVC.swift */,
 			);
 			path = AuthScenes;
+			sourceTree = "<group>";
+		};
+		BCEA06FF2543FF480006E4C3 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -463,6 +475,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */,
+				BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
 				BCB2221B25401921002D997F /* LoginVC.swift in Sources */,
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
@@ -478,7 +491,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BCB221D52540155D002D997F /* nimbleTests.swift in Sources */,
+				BCB221D52540155D002D997F /* NimbleSurveySDKTests.swift in Sources */,
+				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
