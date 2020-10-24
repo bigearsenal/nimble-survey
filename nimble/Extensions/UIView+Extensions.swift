@@ -41,4 +41,10 @@ extension UIView {
         isUserInteractionEnabled = true
         return self
     }
+    
+    @discardableResult
+    func hidden() -> Self {
+        isHidden = true
+        return self
+    }
 }

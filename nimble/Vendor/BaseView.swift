@@ -7,22 +7,6 @@
 
 import Foundation
 
-class BaseView: UIView {
-    // MARK: - Class Initialization
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        commonInit()
-    }
+class BaseView: BEView {
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        
-        commonInit()
-    }
-    
-    // MARK: - Custom Functions
-    func commonInit() {
-        
-    }
 }
