@@ -58,6 +58,23 @@ struct NimbleSurveySDK {
         return handleTokenRequest(req)
     }
     
+    func resetPassword(email: String) -> Single<String> {
+        request(
+            method: .post,
+            path: "/passwords",
+            parameters: [
+                "user": [
+                    "email": email
+                ]
+            ],
+            authorizationRequired: false,
+            decodedTo: Response<ResponseMeta>.self,
+            retryOnTokenExpired: false
+        )
+        .map {$0.meta?.message ?? "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."}
+    }
+    
+    // MARK: - Helper
     private func refreshToken() -> Completable {
         let req = request(
             method: .post,
@@ -73,7 +90,6 @@ struct NimbleSurveySDK {
         return handleTokenRequest(req)
     }
     
-    // MARK: - Helper
     private func apiUrlWithPath(_ path: String) -> String {
         apiEndpoint + path
     }

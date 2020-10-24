@@ -10,6 +10,7 @@ import Foundation
 extension NimbleSurveySDK {
     struct Response<T: Decodable>: Decodable {
         let data: ResponseData<T>?
+        let meta: ResponseMeta?
     }
     struct ResponseData<T: Decodable>: Decodable {
         let id: Int
@@ -23,6 +24,11 @@ extension NimbleSurveySDK {
         let expires_in: UInt
         let refresh_token: String
         let created_at: UInt
+    }
+    
+    // Meta response
+    struct ResponseMeta: Decodable {
+        let message: String
     }
 }
 
