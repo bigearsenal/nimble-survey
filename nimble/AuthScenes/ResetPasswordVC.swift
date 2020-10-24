@@ -36,6 +36,7 @@ class ResetPasswordVC: AuthVC {
         NimbleSurveySDK.shared.resetPassword(email: emailField.text!)
             .subscribe { (message) in
                 UIApplication.shared.keyWindow?.hideHud()
+                NotificationBanner.show(title: "Check your email", message: message)
                 // TODO: show notification panel
             } onError: { (error) in
                 UIApplication.shared.keyWindow?.hideHud()
