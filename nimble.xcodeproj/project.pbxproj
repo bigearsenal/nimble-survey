@@ -145,6 +145,16 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		BC36BC0325449AF20026A12A /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				BCB222A0254042C6002D997F /* AuthVC.swift */,
+				BCB2221A25401921002D997F /* LoginVC.swift */,
+				BCB222A52540431C002D997F /* ResetPasswordVC.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
 		BCB221B12540155C002D997F = {
 			isa = PBXGroup;
 			children = (
@@ -173,7 +183,7 @@
 				BCEA06FF2543FF480006E4C3 /* Services */,
 				BCB22211254018C0002D997F /* Vendor */,
 				BCB2228F25402DE4002D997F /* Extensions */,
-				BCB222AA25404323002D997F /* AuthScenes */,
+				BCB222AA25404323002D997F /* Scenes */,
 				BCB221BD2540155C002D997F /* AppDelegate.swift */,
 				BCB221C62540155D002D997F /* Assets.xcassets */,
 				BCB221C82540155D002D997F /* LaunchScreen.storyboard */,
@@ -221,14 +231,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		BCB222AA25404323002D997F /* AuthScenes */ = {
+		BCB222AA25404323002D997F /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				BCB222A0254042C6002D997F /* AuthVC.swift */,
-				BCB2221A25401921002D997F /* LoginVC.swift */,
-				BCB222A52540431C002D997F /* ResetPasswordVC.swift */,
+				BC36BC0325449AF20026A12A /* Auth */,
 			);
-			path = AuthScenes;
+			path = Scenes;
 			sourceTree = "<group>";
 		};
 		BCEA06FF2543FF480006E4C3 /* Services */ = {
