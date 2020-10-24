@@ -39,14 +39,14 @@ struct NimbleSurveySDK {
             method: .post,
             path: "/oauth/token",
             parameters: [
-                "grant_type": "password" as NSString,
-                "email": email as NSString,
-                "password": password as NSString
+                "grant_type": "password",
+                "email": email,
+                "password": password
             ],
             authorizationRequired: false,
-            decodedTo: ResponseData<ResponseToken>.self
+            decodedTo: Response<ResponseToken>.self
         )
-        .map {$0.attributes}
+        .map {$0.data.attributes}
     }
     
     // MARK: - Helper
@@ -54,7 +54,7 @@ struct NimbleSurveySDK {
         apiEndpoint + path
     }
     
-    func request<T: Decodable>(method: HTTPMethod, path: String, parameters: [String: AnyObject]?, authorizationRequired: Bool = true, shouldAddClientInfo: Bool = true, decodedTo: T.Type) -> Single<T>{
+    func request<T: Decodable>(method: HTTPMethod, path: String, parameters: [String: Any]?, authorizationRequired: Bool = true, shouldAddClientInfo: Bool = true, decodedTo: T.Type) -> Single<T>{
         var headers: HTTPHeaders = []
         if authorizationRequired {
             headers = [.authorization(bearerToken: "")]
@@ -64,9 +64,18 @@ struct NimbleSurveySDK {
             parameters?["client_id"] = clientId as NSString
             parameters?["client_secret"] = clientSecret as NSString
         }
-        return URLSession.shared.rx.data(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
+        
+        return data(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
             .debug()
+            .take(1)
             .asSingle()
+            .do(onSuccess: { (data) in
+                #if DEBUG
+                if let string = String(data: data, encoding: .utf8) {
+                    print(string)
+                }
+                #endif
+            })
             .map {try JSONDecoder().decode(T.self, from: $0)}
     }
 }

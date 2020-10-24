@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import RxBlocking
 
 class NimbleSurveySDKTests: XCTestCase {
 
@@ -17,20 +18,9 @@ class NimbleSurveySDKTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testErrors() throws {
-        let response = """
-        {
-            "errors": [
-                {
-                    "source": "unauthorized",
-                    "detail": "The access token is invalid",
-                    "code": "invalid_token"
-                }
-            ]
-        }
-        """
-        let responseErrors = try JSONDecoder().decode(NimbleSurveySDK.ResponseErrors.self, from: response.data(using: .utf8)!)
-        XCTAssertEqual(responseErrors.errors?.first?.code, "invalid_token")
+    func testLogin() throws {
+        let loginResult = try NimbleSurveySDK.shared.loginWithEmail("dev@nimblehq.co", password: "12345678").toBlocking().first()
+        XCTAssertEqual(loginResult?.token_type, "Bearer")
     }
 
 }

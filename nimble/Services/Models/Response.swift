@@ -11,6 +11,9 @@ extension NimbleSurveySDK {
     struct ResponseNoBody: Decodable {}
     
     // MARK: - ResponseData
+    struct Response<T: Decodable>: Decodable {
+        let data: ResponseData<T>
+    }
     struct ResponseData<T: Decodable>: Decodable {
         let id: Int
         let type: String
