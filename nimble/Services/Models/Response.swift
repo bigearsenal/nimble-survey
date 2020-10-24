@@ -17,6 +17,14 @@ extension NimbleSurveySDK {
         let attributes: T
     }
     
+    struct ResponseToken: Decodable {
+        let access_token: String
+        let token_type: String
+        let expires_in: UInt
+        let refresh_token: String
+        let created_at: UInt
+    }
+    
     // MARK: - ResponseLogout
     struct ResponseLogout: Decodable {
         
