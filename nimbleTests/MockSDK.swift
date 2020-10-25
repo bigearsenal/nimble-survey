@@ -29,7 +29,7 @@ struct MockSDK: APISDK {
     }
     
     func getMockList() throws -> [ResponseSurvey] {
-        guard let path = Bundle(for: SurveysListDecodingTests.self).path(forResource: "SurveysList", ofType: "json")
+        guard let path = Bundle(for: HomeViewModelTests.self).path(forResource: "SurveysList", ofType: "json")
         else {
             return []
         }
