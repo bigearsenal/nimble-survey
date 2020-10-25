@@ -15,15 +15,26 @@ class HomeVC: BaseViewController {
     
     // MARK: - Properties
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
-    var currentPageIndex = 0
-    var viewControllers = [SurveyVC]()
     
     // MARK: - Subviews
-    lazy var pageControl = UIPageControl()
-    lazy var containerView = UIView(forAutoLayout: ())
-    lazy var pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
+    lazy var pageControl: UIPageControl = {
+        let pc = UIPageControl(forAutoLayout: ())
+        pc.isUserInteractionEnabled = false
+        pc.addTarget(self, action: #selector(pageControlDidChangePage), for: .touchUpInside)
+        return pc
+    }()
+    lazy var pageCollectionView: UICollectionView = {
+        let collectionView = UICollectionView.horizontalFlow(
+            cellType: SurveyCell.self
+        )
+        collectionView.layer.masksToBounds = false
+        collectionView.isPagingEnabled = true
+        return collectionView
+    }()
     
-    lazy var avatarLoadingImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
+    lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
+        .onTap(self, action: #selector(avatarButtonDidTouch))
     lazy var topLoadingStackView = createTopLoadingView()
     lazy var bottomLoadingStackView = createBottomLoadingView()
     
@@ -36,21 +47,36 @@ class HomeVC: BaseViewController {
         // background
         view.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 26/255, alpha: 1)
         
+        view.addSubview(bgImageView)
+        bgImageView.autoPinEdgesToSuperviewEdges()
+        
+        view.layoutIfNeeded()
+        
+        let gradView = UIView(frame: bgImageView.frame)
+        let gradient = CAGradientLayer()
+        gradient.frame = gradView.frame
+        gradient.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradView.layer.insertSublayer(gradient, at: 0)
+
+        bgImageView.addSubview(gradView)
+        bgImageView.bringSubviewToFront(gradView)
+        
         // add pageVC
-        view.addSubview(containerView)
-        containerView.autoPinEdgesToSuperviewEdges()
-        addChild(pageVC)
-        pageVC.view.configureForAutoLayout()
-        containerView.addSubview(pageVC.view)
-        pageVC.view.autoPinEdgesToSuperviewEdges()
-        pageVC.didMove(toParent: self)
+        view.addSubview(pageCollectionView)
+        pageCollectionView.autoPinEdgesToSuperviewEdges()
         
         // add page controll
         view.addSubview(pageControl)
-        pageControl.autoPinToBottomLeftCornerOfSuperview()
+        pageControl.autoPinEdge(toSuperviewEdge: .leading, withInset: -20)
+        pageControl.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 206 - 18)
         
         // add loading views
         addLoadingViews()
+        
+        // avatar
+        view.addSubview(avatarImageView)
+        avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
         
         // load data
         reload()
@@ -65,52 +91,85 @@ class HomeVC: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.dataRelay.filter {$0 != nil}.map {$0!}
+            .bind(to: pageCollectionView.rx.items(cellIdentifier: "SurveyCell", cellType: SurveyCell.self)) { _, model, cell in
+                cell.setUpWithSurvey(model)
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.surveys
             .subscribe(onNext: { [weak self] surveys in
-                self?.viewControllers = surveys.map { survey -> SurveyVC in
-                    let vc = SurveyVC()
-                    vc.setUpWithSurvey(survey)
-                    return vc
-                }
                 self?.pageControl.numberOfPages = surveys.count
                 self?.moveToItemAtIndex(0)
             })
+            .disposed(by: disposeBag)
+        
+        viewModel.userRelay.filter {$0 != nil}
+            .map {$0!.avatar_url}
+            .subscribe(onNext: { [weak self] url in
+                guard let self = self, let urlString = url, let url = URL(string: urlString) else {return}
+                self.avatarImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "user-default-avatar"))
+            })
+            .disposed(by: disposeBag)
+        
+        // handle scroll view
+        pageCollectionView.rx.didEndDecelerating
+            .subscribe(onNext: {
+                let pageWidth = self.pageCollectionView.frame.size.width
+                let currentPage = Int((self.pageCollectionView.contentOffset.x + pageWidth / 2) / pageWidth)
+                self.pageControl.currentPage = currentPage
+                self.moveToItemAtIndex(currentPage)
+            })
+            .disposed(by: disposeBag)
+        
+        pageCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
     
     func setUpWithLoadingState(_ state: HomeViewModel.LoadingState) {
         errorView.isHidden = true
+        avatarImageView.isHidden = false
         switch state {
         case .loading:
+            pageCollectionView.isHidden = true
             topLoadingStackView.isHidden = false
             bottomLoadingStackView.isHidden = false
-            avatarLoadingImageView.isHidden = false
+            avatarImageView.showLoading()
         case .loaded:
+            pageCollectionView.isHidden = false
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
-            avatarLoadingImageView.isHidden = true
+            avatarImageView.hideLoading()
         case .error(let error):
+            pageCollectionView.isHidden = true
             errorView.isHidden = false
             errorLabel.text = (error as? NBError)?.localizedDescription ?? error.localizedDescription
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
-            avatarLoadingImageView.isHidden = true
+            avatarImageView.isHidden = true
         }
     }
     
     func moveToItemAtIndex(_ index: Int) {
-        guard viewControllers.count > index else { return }
-        let vc = viewControllers[index]
-        
-        pageVC.setViewControllers([vc], direction: index > currentPageIndex ? .forward : .reverse, animated: true, completion: nil)
-        pageControl.currentPage = index
-        
-        currentPageIndex = index
+        guard viewModel.dataRelay.value?.count ?? 0 > index else {return}
+        let item = viewModel.dataRelay.value![index]
+        bgImageView.image = nil
+        bgImageView.sd_setImage(with: URL(string: item.cover_image_url ?? ""))
     }
     
     // MARK: - Actions
     @objc func reload() {
         viewModel.reloadSubject.onNext(())
+    }
+    
+    @objc func pageControlDidChangePage(){
+        moveToItemAtIndex(pageControl.currentPage)
+    }
+    
+    @objc func avatarButtonDidTouch() {
+        showActionSheet(title: "Options", actions: [UIAlertAction(title: "Logout", style: .destructive, handler: { _ in
+            self.viewModel.logOut()
+        })])
     }
     
     // MARK: - Helpers
@@ -157,10 +216,11 @@ class HomeVC: BaseViewController {
         view.addSubview(bottomLoadingStackView)
         bottomLoadingStackView.autoPinToBottomLeftCornerOfSuperviewSafeArea(xInset: 20, yInset: 33)
         bottomLoadingStackView.arrangedSubviews.filter {$0.tag == loadingTag}.forEach {$0.showLoading()}
-        
-        view.addSubview(avatarLoadingImageView)
-        avatarLoadingImageView.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
-        avatarLoadingImageView.autoAlignAxis(.horizontal, toSameAxisOf: topLoadingStackView)
-        avatarLoadingImageView.showLoading()
+    }
+}
+
+extension HomeVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        view.bounds.size
     }
 }

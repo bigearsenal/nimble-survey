@@ -85,6 +85,12 @@ struct NimbleSurveySDK: APISDK {
         )
         .asCompletable()
         .catchError {_ in return .empty()}
+        .do(onCompleted: {
+            // clear user from keychain
+            KeychainManager.clear()
+            
+            self.authState.accept(.unauthorized)
+        })
     }
     
     // MARK: - Surveys
@@ -96,6 +102,22 @@ struct NimbleSurveySDK: APISDK {
             decodedTo: Response<Surveys>.self
         )
         .map {$0.data?.compactMap {$0.attributes} ?? []}
+    }
+    
+    // MARK: - User
+    func getUserProfile() -> Single<ResponseUser> {
+        request(
+            method: .get,
+            path: "/me",
+            shouldAddClientInfo: false,
+            decodedTo: Response<ResponseData<ResponseUser>>.self
+        )
+        .map {
+            guard let user = $0.data?.attributes else {
+                throw NBError(detail: "User not found", code: "user_not_found", source: "unauthorized")
+            }
+            return user
+        }
     }
     
     // MARK: - Helper
