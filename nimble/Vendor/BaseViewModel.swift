@@ -45,12 +45,12 @@ class BaseViewModel<DataType> {
         reloadSubject
             .flatMap {_ in self.request()}
             .do(onError: {self.loadingStateRelay.accept(.error($0))},
-                onCompleted: {self.loadingStateRelay.accept(.loaded)},
                 onSubscribe: {self.loadingStateRelay.accept(.loading)}
             )
-            .subscribe { newData in
+            .subscribe(onNext: { newData in
                 self.dataRelay.accept(newData)
-            }
+                self.loadingStateRelay.accept(.loaded)
+            })
             .disposed(by: disposeBag)
     }
     
