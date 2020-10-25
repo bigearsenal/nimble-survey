@@ -28,6 +28,7 @@ class HomeVC: BaseViewController {
             cellType: SurveyCell.self
         )
         collectionView.layer.masksToBounds = false
+        collectionView.isPagingEnabled = true
         return collectionView
     }()
     
