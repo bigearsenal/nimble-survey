@@ -11,7 +11,6 @@ class SurveyCell: BaseCollectionViewCell {
     // MARK: - Subviews
     lazy var fullDatelabel = UILabel(textSize: 13, weight: .medium, textColor: .white)
     lazy var shortDateLabel = UILabel(textSize: 34, weight: .semibold, textColor: .white)
-    lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     
     lazy var titleLabel = UILabel(textSize: 28, weight: .semibold, textColor: .white, numberOfLines: 2)
     lazy var descriptionLabel = UILabel(textSize: 17, textColor: .white, numberOfLines: 2)
@@ -35,7 +34,6 @@ class SurveyCell: BaseCollectionViewCell {
     
     func setUpWithSurvey(_ survey: ResponseSurvey) {
 //        bgImageView.sd_setImage(with: URL(string: survey.cover_image_url ?? ""))
-        avatarImageView.sd_setImage(with: URL(string: survey.cover_image_url ?? ""))
         
         if let date = Date.ISO8601(string: survey.created_at) {
             let fullDateFormatter = DateFormatter()
@@ -51,20 +49,16 @@ class SurveyCell: BaseCollectionViewCell {
     private func configureHeader() {
         // header stackView
         let headerStackView: UIStackView = {
-            let stackView = UIStackView(axis: .horizontal, spacing: 10, alignment: .center, distribution: .fill)
             let labelsStackView = UIStackView(axis: .vertical, spacing: 4, alignment: .leading, distribution: .fill)
             labelsStackView.addArrangedSubview(fullDatelabel)
             labelsStackView.addArrangedSubview(shortDateLabel)
-            stackView.addArrangedSubview(labelsStackView)
-            stackView.addArrangedSubview(UIView(forAutoLayout: ()))
-            stackView.addArrangedSubview(avatarImageView)
-            return stackView
+            return labelsStackView
         }()
         
         contentView.addSubview(headerStackView)
         headerStackView.autoPinEdge(toSuperviewSafeArea: .top, withInset: 16)
         headerStackView.autoPinEdge(toSuperviewSafeArea: .leading, withInset: 20)
-        headerStackView.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 20)
+        headerStackView.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 76)
     }
     
     private func configureFooter() {

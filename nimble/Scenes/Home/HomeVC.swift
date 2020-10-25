@@ -20,6 +20,7 @@ class HomeVC: BaseViewController {
     lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl(forAutoLayout: ())
+        pc.isUserInteractionEnabled = false
         pc.addTarget(self, action: #selector(pageControlDidChangePage), for: .touchUpInside)
         return pc
     }()
@@ -32,7 +33,7 @@ class HomeVC: BaseViewController {
         return collectionView
     }()
     
-    lazy var avatarLoadingImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
+    lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     lazy var topLoadingStackView = createTopLoadingView()
     lazy var bottomLoadingStackView = createBottomLoadingView()
     
@@ -47,6 +48,10 @@ class HomeVC: BaseViewController {
         
         view.addSubview(bgImageView)
         bgImageView.autoPinEdgesToSuperviewEdges()
+        
+        // avatar
+        view.addSubview(avatarImageView)
+        avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
         
         // add pageVC
         view.addSubview(pageCollectionView)
@@ -81,9 +86,18 @@ class HomeVC: BaseViewController {
         
         viewModel.surveys
             .subscribe(onNext: { [weak self] surveys in
-                
                 self?.pageControl.numberOfPages = surveys.count
                 self?.moveToItemAtIndex(0)
+            })
+            .disposed(by: disposeBag)
+        
+        // handle scroll view
+        pageCollectionView.rx.didEndDecelerating
+            .subscribe(onNext: {
+                let pageWidth = self.pageCollectionView.frame.size.width
+                let currentPage = Int((self.pageCollectionView.contentOffset.x + pageWidth / 2) / pageWidth)
+                self.pageControl.currentPage = currentPage
+                self.moveToItemAtIndex(currentPage)
             })
             .disposed(by: disposeBag)
         
@@ -93,35 +107,33 @@ class HomeVC: BaseViewController {
     
     func setUpWithLoadingState(_ state: HomeViewModel.LoadingState) {
         errorView.isHidden = true
+        avatarImageView.isHidden = false
         switch state {
         case .loading:
             pageCollectionView.isHidden = true
             topLoadingStackView.isHidden = false
             bottomLoadingStackView.isHidden = false
-            avatarLoadingImageView.isHidden = false
+            avatarImageView.showLoading()
         case .loaded:
             pageCollectionView.isHidden = false
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
-            avatarLoadingImageView.isHidden = true
+            avatarImageView.hideLoading()
         case .error(let error):
             pageCollectionView.isHidden = true
             errorView.isHidden = false
             errorLabel.text = (error as? NBError)?.localizedDescription ?? error.localizedDescription
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
-            avatarLoadingImageView.isHidden = true
+            avatarImageView.isHidden = true
         }
     }
     
     func moveToItemAtIndex(_ index: Int) {
-//        guard viewControllers.count > index else { return }
-//        let vc = viewControllers[index]
-//
-//        pageVC.setViewControllers([vc], direction: index > currentPageIndex ? .forward : .reverse, animated: true, completion: nil)
-//        pageControl.currentPage = index
-//
-//        currentPageIndex = index
+        guard viewModel.dataRelay.value?.count ?? 0 > index else {return}
+        let item = viewModel.dataRelay.value![index]
+        bgImageView.image = nil
+        bgImageView.sd_setImage(with: URL(string: item.cover_image_url ?? ""))
     }
     
     // MARK: - Actions
@@ -177,11 +189,6 @@ class HomeVC: BaseViewController {
         view.addSubview(bottomLoadingStackView)
         bottomLoadingStackView.autoPinToBottomLeftCornerOfSuperviewSafeArea(xInset: 20, yInset: 33)
         bottomLoadingStackView.arrangedSubviews.filter {$0.tag == loadingTag}.forEach {$0.showLoading()}
-        
-        view.addSubview(avatarLoadingImageView)
-        avatarLoadingImageView.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
-        avatarLoadingImageView.autoAlignAxis(.horizontal, toSameAxisOf: topLoadingStackView)
-        avatarLoadingImageView.showLoading()
     }
 }
 
