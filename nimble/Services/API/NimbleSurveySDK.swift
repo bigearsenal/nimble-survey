@@ -11,7 +11,12 @@ import RxCocoa
 import Alamofire
 import RxAlamofire
 
-struct NimbleSurveySDK {
+protocol APISDK {
+    func loginWithEmail(_ email: String, password: String) -> Completable
+    func resetPassword(email: String) -> Single<String>
+}
+
+struct NimbleSurveySDK: APISDK {
     enum AuthState: Equatable {
         case authorized, unauthorized
     }

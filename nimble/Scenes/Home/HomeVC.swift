@@ -61,6 +61,8 @@ class HomeVC: BEViewController {
         
         view.addSubview(bottomLoadingStackView)
         bottomLoadingStackView.autoPinToBottomLeftCornerOfSuperviewSafeArea(xInset: 20, yInset: 33)
+        
+        showLoader()
     }
     
     func showLoader() {
