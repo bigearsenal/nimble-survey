@@ -27,4 +27,8 @@ struct KeychainManager {
         let data = try JSONEncoder().encode(token)
         self.keychain.set(data, forKey: tokenKeychainKey)
     }
+    
+    static func clear() {
+        keychain.clear()
+    }
 }

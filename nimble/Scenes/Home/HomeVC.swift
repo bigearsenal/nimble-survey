@@ -34,6 +34,7 @@ class HomeVC: BaseViewController {
     }()
     
     lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
+        .onTap(self, action: #selector(avatarButtonDidTouch))
     lazy var topLoadingStackView = createTopLoadingView()
     lazy var bottomLoadingStackView = createBottomLoadingView()
     
@@ -61,10 +62,6 @@ class HomeVC: BaseViewController {
         bgImageView.addSubview(gradView)
         bgImageView.bringSubviewToFront(gradView)
         
-        // avatar
-        view.addSubview(avatarImageView)
-        avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
-        
         // add pageVC
         view.addSubview(pageCollectionView)
         pageCollectionView.autoPinEdgesToSuperviewEdges()
@@ -76,6 +73,10 @@ class HomeVC: BaseViewController {
         
         // add loading views
         addLoadingViews()
+        
+        // avatar
+        view.addSubview(avatarImageView)
+        avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
         
         // load data
         reload()
@@ -100,6 +101,14 @@ class HomeVC: BaseViewController {
             .subscribe(onNext: { [weak self] surveys in
                 self?.pageControl.numberOfPages = surveys.count
                 self?.moveToItemAtIndex(0)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.userRelay.filter {$0 != nil}
+            .map {$0!.avatar_url}
+            .subscribe(onNext: { [weak self] url in
+                guard let self = self, let urlString = url, let url = URL(string: urlString) else {return}
+                self.avatarImageView.sd_setImage(with: url, placeholderImage: UIImage(named: "user-default-avatar"))
             })
             .disposed(by: disposeBag)
         
@@ -155,6 +164,12 @@ class HomeVC: BaseViewController {
     
     @objc func pageControlDidChangePage(){
         moveToItemAtIndex(pageControl.currentPage)
+    }
+    
+    @objc func avatarButtonDidTouch() {
+        showActionSheet(title: "Options", actions: [UIAlertAction(title: "Logout", style: .destructive, handler: { _ in
+            self.viewModel.logOut()
+        })])
     }
     
     // MARK: - Helpers

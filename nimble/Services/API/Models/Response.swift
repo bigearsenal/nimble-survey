@@ -39,6 +39,11 @@ struct ResponseSurvey: Decodable, Equatable {
     let survey_type: String?
 }
 
+struct ResponseUser: Decodable {
+    let email: String?
+    let avatar_url: String?
+}
+
 // Meta response
 struct ResponseMeta: Decodable {
     let message: String?
