@@ -11,7 +11,7 @@ class SurveyVC: BaseViewController {
     override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.hidden}
     // MARK: - Subviews
     lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
-    lazy var fullDatelabel = UILabel(textSize: 13, textColor: .white)
+    lazy var fullDatelabel = UILabel(textSize: 13, weight: .medium, textColor: .white)
     lazy var shortDateLabel = UILabel(textSize: 34, weight: .semibold, textColor: .white)
     lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     
