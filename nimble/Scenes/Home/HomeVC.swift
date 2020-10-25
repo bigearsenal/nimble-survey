@@ -117,7 +117,6 @@ class HomeVC: BaseViewController {
             .subscribe(onNext: {
                 let pageWidth = self.pageCollectionView.frame.size.width
                 let currentPage = Int((self.pageCollectionView.contentOffset.x + pageWidth / 2) / pageWidth)
-                self.pageControl.currentPage = currentPage
                 self.moveToItemAtIndex(currentPage)
             })
             .disposed(by: disposeBag)
@@ -158,7 +157,7 @@ class HomeVC: BaseViewController {
         let item = viewModel.dataRelay.value![index]
         bgImageView.image = nil
         bgImageView.sd_setImage(with: URL(string: item.cover_image_url ?? ""))
-        pageControl.currentPage = 0
+        pageControl.currentPage = index
     }
     
     // MARK: - Actions
