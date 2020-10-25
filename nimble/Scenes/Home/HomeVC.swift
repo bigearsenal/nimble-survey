@@ -135,11 +135,13 @@ class HomeVC: BaseViewController {
             topLoadingStackView.isHidden = false
             bottomLoadingStackView.isHidden = false
             avatarImageView.showLoading()
+            pageControl.isHidden = true
         case .loaded:
             pageCollectionView.isHidden = false
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
             avatarImageView.hideLoading()
+            pageControl.isHidden = false
         case .error(let error):
             pageCollectionView.isHidden = true
             errorView.isHidden = false
@@ -147,6 +149,7 @@ class HomeVC: BaseViewController {
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
             avatarImageView.isHidden = true
+            pageControl.isHidden = true
         }
     }
     
@@ -159,7 +162,7 @@ class HomeVC: BaseViewController {
     
     // MARK: - Actions
     @objc func reload() {
-        viewModel.reloadSubject.onNext(())
+        viewModel.reload()
     }
     
     @objc func pageControlDidChangePage(){

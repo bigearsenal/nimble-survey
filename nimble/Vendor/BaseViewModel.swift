@@ -32,29 +32,23 @@ class BaseViewModel<DataType> {
     
     // MARK: - Properties
     let disposeBag = DisposeBag()
-    let reloadSubject = PublishSubject<Void>()
     let loadingStateRelay = BehaviorRelay<LoadingState>(value: .loading)
     let dataRelay = BehaviorRelay<DataType?>(value: nil)
     
     // MARK: - Methods
-    init() {
-        bind()
-    }
-    
-    func bind() {
-        reloadSubject
-            .flatMap {_ in self.request()}
-            .do(onError: {self.loadingStateRelay.accept(.error($0))},
-                onSubscribe: {self.loadingStateRelay.accept(.loading)}
-            )
-            .subscribe(onNext: { newData in
-                self.dataRelay.accept(newData)
-                self.loadingStateRelay.accept(.loaded)
-            })
-            .disposed(by: disposeBag)
-    }
-    
     func request() -> Single<DataType> {
         fatalError("Must override")
+    }
+    
+    func reload() {
+        self.loadingStateRelay.accept(.loading)
+        self.request()
+            .subscribe(onSuccess: { newData in
+                self.dataRelay.accept(newData)
+                self.loadingStateRelay.accept(.loaded)
+            }, onError: { (error) in
+                self.loadingStateRelay.accept(.error(error))
+            })
+            .disposed(by: disposeBag)
     }
 }

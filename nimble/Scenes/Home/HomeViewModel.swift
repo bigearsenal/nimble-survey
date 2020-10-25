@@ -21,17 +21,16 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
         super.init()
     }
     
-    override func bind() {
-        super.bind()
-        reloadSubject
-            .flatMap {self.apiSDK.getUserProfile()}
-            .subscribe(onNext: {self.userRelay.accept($0)})
-            .disposed(by: disposeBag)
-    }
-    
     override func request() -> Single<[ResponseSurvey]> {
         // TODO: Pagination
         apiSDK.getSurveysList(pageNumber: 1, pageSize: 8)
+    }
+    
+    override func reload() {
+        super.reload()
+        self.apiSDK.getUserProfile()
+            .subscribe(onSuccess: {self.userRelay.accept($0)})
+            .disposed(by: disposeBag)
     }
     
     func logOut() {
