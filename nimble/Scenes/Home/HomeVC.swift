@@ -15,8 +15,14 @@ class HomeVC: BaseViewController {
     
     // MARK: - Properties
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
+    var currentPageIndex = 0
+    var viewControllers = [SurveyVC]()
     
     // MARK: - Subviews
+    lazy var pageControl = UIPageControl()
+    lazy var containerView = UIView(forAutoLayout: ())
+    lazy var pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    
     lazy var avatarLoadingImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     lazy var topLoadingStackView = createTopLoadingView()
     lazy var bottomLoadingStackView = createBottomLoadingView()
@@ -29,6 +35,19 @@ class HomeVC: BaseViewController {
         super.setUp()
         // background
         view.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 26/255, alpha: 1)
+        
+        // add pageVC
+        view.addSubview(containerView)
+        containerView.autoPinEdgesToSuperviewEdges()
+        addChild(pageVC)
+        pageVC.view.configureForAutoLayout()
+        containerView.addSubview(pageVC.view)
+        pageVC.view.autoPinEdgesToSuperviewEdges()
+        pageVC.didMove(toParent: self)
+        
+        // add page controll
+        view.addSubview(pageControl)
+        pageControl.autoPinToBottomLeftCornerOfSuperview()
         
         // add loading views
         addLoadingViews()
@@ -43,6 +62,18 @@ class HomeVC: BaseViewController {
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] loadingState in
                 self?.setUpWithLoadingState(loadingState)
+            })
+            .disposed(by: disposeBag)
+        
+        viewModel.surveys
+            .subscribe(onNext: { [weak self] surveys in
+                self?.viewControllers = surveys.map { survey -> SurveyVC in
+                    let vc = SurveyVC()
+                    vc.setUpWithSurvey(survey)
+                    return vc
+                }
+                self?.pageControl.numberOfPages = surveys.count
+                self?.moveToItemAtIndex(0)
             })
             .disposed(by: disposeBag)
     }
@@ -65,6 +96,16 @@ class HomeVC: BaseViewController {
             bottomLoadingStackView.isHidden = true
             avatarLoadingImageView.isHidden = true
         }
+    }
+    
+    func moveToItemAtIndex(_ index: Int) {
+        guard viewControllers.count > index else { return }
+        let vc = viewControllers[index]
+        
+        pageVC.setViewControllers([vc], direction: index > currentPageIndex ? .forward : .reverse, animated: true, completion: nil)
+        pageControl.currentPage = index
+        
+        currentPageIndex = index
     }
     
     // MARK: - Actions

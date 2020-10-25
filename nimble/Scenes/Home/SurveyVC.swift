@@ -8,6 +8,7 @@
 import Foundation
 
 class SurveyVC: BaseViewController {
+    override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.hidden}
     // MARK: - Subviews
     lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
     lazy var fullDatelabel = UILabel(textSize: 13, textColor: .white)
