@@ -17,6 +17,7 @@ class HomeVC: BaseViewController {
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
     
     // MARK: - Subviews
+    lazy var loadingView = UIImageView(width: 36, height: 36, cornerRadius: 18, imageNamed: "loading")
     lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl(forAutoLayout: ())
@@ -40,6 +41,7 @@ class HomeVC: BaseViewController {
         // background
         view.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 26/255, alpha: 1)
         
+        // background image
         view.addSubview(bgImageView)
         bgImageView.autoPinEdgesToSuperviewEdges()
         
@@ -55,7 +57,7 @@ class HomeVC: BaseViewController {
         bgImageView.addSubview(gradView)
         bgImageView.bringSubviewToFront(gradView)
         
-        // add pageVC
+        // pageCollectionView with pull to refresh
         view.addSubview(pageCollectionView)
         pageCollectionView.autoPinEdgesToSuperviewEdges()
         
@@ -70,6 +72,25 @@ class HomeVC: BaseViewController {
         // avatar
         view.addSubview(avatarImageView)
         avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
+        
+        // pull to refresh
+        view.addSubview(loadingView)
+        loadingView.isHidden = true
+        loadingView.autoAlignAxis(toSuperviewAxis: .vertical)
+        loadingView.autoPinEdge(.top, to: .bottom, of: avatarImageView, withOffset: 26)
+        
+        pageCollectionView.handleRefresh = { y in
+            self.loadingView.isHidden = false
+            self.loadingView.layer.removeAllAnimations()
+            let anim = CABasicAnimation(keyPath: "transform.rotation.z")
+            anim.duration = 0.3
+            anim.repeatCount = 3
+            anim.fromValue = 0
+            anim.toValue = CGFloat.pi * 2
+            anim.delegate = self
+            anim.isRemovedOnCompletion = false
+            self.loadingView.layer.add(anim, forKey: "reload")
+        }
         
         // load data
         reload()
@@ -212,6 +233,15 @@ class HomeVC: BaseViewController {
         view.addSubview(bottomLoadingStackView)
         bottomLoadingStackView.autoPinToBottomLeftCornerOfSuperviewSafeArea(xInset: 20, yInset: 33)
         bottomLoadingStackView.arrangedSubviews.filter {$0.tag == loadingTag}.forEach {$0.showLoading()}
+    }
+}
+
+extension HomeVC: CAAnimationDelegate {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+        if anim == loadingView.layer.animation(forKey: "reload") {
+            reload()
+            loadingView.isHidden = true
+        }
     }
 }
 

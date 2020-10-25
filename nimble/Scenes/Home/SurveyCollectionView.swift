@@ -8,6 +8,8 @@
 import Foundation
 
 class SurveyCollectionView: UICollectionView {
+    var handleRefresh: ((CGFloat) -> Void)?
+    
     init() {
         let layout = UICollectionViewFlowLayout()
         layout.sectionInset = .zero
@@ -31,6 +33,10 @@ class SurveyCollectionView: UICollectionView {
         if let panGesture = gestureRecognizer as? UIPanGestureRecognizer {
             let velocity = panGesture.velocity(in: self)
             if abs(velocity.x) < abs(velocity.y) {
+                let y = panGesture.translation(in: self).y
+                if y > 30 {
+                    handleRefresh?(y)
+                }
                 return false
             }
         }
