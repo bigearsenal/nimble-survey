@@ -158,6 +158,7 @@ class HomeVC: BaseViewController {
         let item = viewModel.dataRelay.value![index]
         bgImageView.image = nil
         bgImageView.sd_setImage(with: URL(string: item.cover_image_url ?? ""))
+        pageControl.currentPage = 0
     }
     
     // MARK: - Actions
