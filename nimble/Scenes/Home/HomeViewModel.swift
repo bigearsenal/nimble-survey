@@ -21,6 +21,6 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
     
     override func request() -> Single<[ResponseSurvey]> {
         // TODO: Pagination
-        apiSDK.getSurveysList(pageNumber: 1, pageSize: 2)
+        apiSDK.getSurveysList(pageNumber: 1, pageSize: 8)
     }
 }

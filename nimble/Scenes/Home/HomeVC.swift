@@ -17,9 +17,10 @@ class HomeVC: BaseViewController {
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
     var currentPageIndex = 0
     var viewControllers = [SurveyVC]()
+    var pageControllerBottomConstraint: NSLayoutConstraint?
     
     // MARK: - Subviews
-    lazy var pageControl = UIPageControl()
+    lazy var pageControl = UIPageControl(forAutoLayout: ())
     lazy var containerView = UIView(forAutoLayout: ())
     lazy var pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     
@@ -47,7 +48,7 @@ class HomeVC: BaseViewController {
         
         // add page controll
         view.addSubview(pageControl)
-        pageControl.autoPinToBottomLeftCornerOfSuperview()
+        pageControl.autoPinEdge(toSuperviewEdge: .leading, withInset: -20)
         
         // add loading views
         addLoadingViews()
@@ -106,6 +107,11 @@ class HomeVC: BaseViewController {
         pageControl.currentPage = index
         
         currentPageIndex = index
+        
+        // layout pageController
+        pageControllerBottomConstraint?.isActive = false
+        pageControllerBottomConstraint = pageControl.autoPinEdge(.bottom, to: .top, of: vc.titleLabel, withOffset: -26)
+
     }
     
     // MARK: - Actions
