@@ -9,9 +9,11 @@ import Foundation
 import SDWebImage
 
 class HomeVC: BaseViewController {
+    // MARK: - Constant
     let loadingTag = 777
     override var preferredNavigationBarStype: BEViewController.NavigationBarStyle {.hidden}
     
+    // MARK: - Properties
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
     
     // MARK: - Subviews
@@ -22,6 +24,7 @@ class HomeVC: BaseViewController {
     lazy var errorView = createErrorView()
     lazy var errorLabel = UILabel(textSize: 17, weight: .medium, textColor: .white, numberOfLines: 0, textAlignment: .center)
     
+    // MARK: - Methods
     override func setUp() {
         super.setUp()
         // background
@@ -50,14 +53,17 @@ class HomeVC: BaseViewController {
         case .loading:
             topLoadingStackView.isHidden = false
             bottomLoadingStackView.isHidden = false
+            avatarLoadingImageView.isHidden = false
         case .loaded:
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
+            avatarLoadingImageView.isHidden = true
         case .error(let error):
             errorView.isHidden = false
             errorLabel.text = (error as? NBError)?.localizedDescription ?? error.localizedDescription
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
+            avatarLoadingImageView.isHidden = true
         }
     }
     
@@ -110,5 +116,10 @@ class HomeVC: BaseViewController {
         view.addSubview(bottomLoadingStackView)
         bottomLoadingStackView.autoPinToBottomLeftCornerOfSuperviewSafeArea(xInset: 20, yInset: 33)
         bottomLoadingStackView.arrangedSubviews.filter {$0.tag == loadingTag}.forEach {$0.showLoading()}
+        
+        view.addSubview(avatarLoadingImageView)
+        avatarLoadingImageView.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
+        avatarLoadingImageView.autoAlignAxis(.horizontal, toSameAxisOf: topLoadingStackView)
+        avatarLoadingImageView.showLoading()
     }
 }
