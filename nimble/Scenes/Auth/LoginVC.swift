@@ -58,7 +58,7 @@ class LoginVC: AuthVC {
                 UIApplication.shared.keyWindow?.hideHud()
             }, onError: { (error) in
                 UIApplication.shared.keyWindow?.hideHud()
-                self.showError(error)
+                self.showErrorAlert(error)
             })
             .disposed(by: disposeBag)
     }

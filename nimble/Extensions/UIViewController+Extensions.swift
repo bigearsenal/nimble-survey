@@ -27,8 +27,8 @@ extension UIWindow {
 
 extension UIViewController {
     
-    func showError(_ error: Error, completion: (() -> Void)? = nil) {
-        let message = (error as? NimbleSurveySDK.Error)?.localizedDescription ?? error.localizedDescription
+    func showErrorAlert(_ error: Error, completion: (() -> Void)? = nil) {
+        let message = (error as? NBError)?.localizedDescription ?? error.localizedDescription
         
         showAlert(title: "Error", message: message, buttonTitles: ["OK"]) { (_) in
             completion?()

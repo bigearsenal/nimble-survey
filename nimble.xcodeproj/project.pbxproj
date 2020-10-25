@@ -9,11 +9,18 @@
 /* Begin PBXBuildFile section */
 		5FFF0642B2C283935B62D812 /* Pods_nimbleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */; };
 		79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */; };
+		BC0A709F254514DC00748577 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A709E254514DC00748577 /* HomeViewModel.swift */; };
+		BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70A3254516A500748577 /* HomeViewModelTests.swift */; };
+		BC0A70AE25451C4800748577 /* MockSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70AD25451C4800748577 /* MockSDK.swift */; };
+		BC0A70B925451CC000748577 /* SurveysList.json in Resources */ = {isa = PBXBuildFile; fileRef = BC0A70B825451CC000748577 /* SurveysList.json */; };
+		BC36BC0925449B730026A12A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC0825449B730026A12A /* HomeVC.swift */; };
+		BC36BC3F25450D5D0026A12A /* UIView+Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */; };
+		BCB06ACF2545116F00C88FA9 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */; };
 		BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221BD2540155C002D997F /* AppDelegate.swift */; };
 		BCB221C72540155D002D997F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C62540155D002D997F /* Assets.xcassets */; };
 		BCB221CA2540155D002D997F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCB221C82540155D002D997F /* LaunchScreen.storyboard */; };
 		BCB221E02540155D002D997F /* nimbleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB221DF2540155D002D997F /* nimbleUITests.swift */; };
-		BCB22216254018E1002D997F /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseViewController.swift */; };
+		BCB22216254018E1002D997F /* BaseStackVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB22215254018E1002D997F /* BaseStackVC.swift */; };
 		BCB2221B25401921002D997F /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2221A25401921002D997F /* LoginVC.swift */; };
 		BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2229025402DF6002D997F /* UIView+Extensions.swift */; };
 		BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB222982540374C002D997F /* Numeric+Extensions.swift */; };
@@ -22,18 +29,23 @@
 		BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */; };
 		BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06EE2543FC020006E4C3 /* BaseButton.swift */; };
 		BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
-		BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
 		BCEA0714254403B70006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
 		BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
 		BCEA072C254406140006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
 		BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
-		BCEA07B8254438360006E4C3 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07B7254438360006E4C3 /* RxAlamofire */; };
 		BCEA07F3254441D40006E4C3 /* MBProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F2254441D40006E4C3 /* MBProgressHUD */; };
 		BCEA07F92544728A0006E4C3 /* KeychainSwift in Frameworks */ = {isa = PBXBuildFile; productRef = BCEA07F82544728A0006E4C3 /* KeychainSwift */; };
 		BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07FD254475F20006E4C3 /* KeychainManager.swift */; };
 		BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */; };
 		BCEA0812254486C50006E4C3 /* NotificationsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */; };
 		BCEA0817254487650006E4C3 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0816254487650006E4C3 /* BaseView.swift */; };
+		BCFE0AAD25451FC5006E9BF1 /* APISDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */; };
+		BCFE0AB725451FD5006E9BF1 /* APISDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */; };
+		BCFE0AD3254524C8006E9BF1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A709E254514DC00748577 /* HomeViewModel.swift */; };
+		BCFE0AD72545253B006E9BF1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */; };
+		BCFE0B4325454AD4006E9BF1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */; };
+		BCFE0B5C25455D8D006E9BF1 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0B5B25455D8D006E9BF1 /* Date+Extensions.swift */; };
+		BCFE0B62254562EB006E9BF1 /* SurveyVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0B61254562EB006E9BF1 /* SurveyVC.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -62,6 +74,13 @@
 		2D6F32919603B21CAAE11FB9 /* Pods-nimbleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nimbleTests.debug.xcconfig"; path = "Target Support Files/Pods-nimbleTests/Pods-nimbleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		41E322EE56BEB741A2C63D51 /* Pods-nimble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nimble.release.xcconfig"; path = "Target Support Files/Pods-nimble/Pods-nimble.release.xcconfig"; sourceTree = "<group>"; };
 		A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble_nimbleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC0A709E254514DC00748577 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BC0A70A3254516A500748577 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		BC0A70AD25451C4800748577 /* MockSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSDK.swift; sourceTree = "<group>"; };
+		BC0A70B825451CC000748577 /* SurveysList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SurveysList.json; sourceTree = "<group>"; };
+		BC36BC0825449B730026A12A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
+		BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loader.swift"; sourceTree = "<group>"; };
+		BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		BCB221BA2540155C002D997F /* nimble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = nimble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB221BD2540155C002D997F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCB221C62540155D002D997F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,7 +91,7 @@
 		BCB221DB2540155D002D997F /* nimbleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = nimbleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCB221DF2540155D002D997F /* nimbleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = nimbleUITests.swift; sourceTree = "<group>"; };
 		BCB221E12540155D002D997F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BCB22215254018E1002D997F /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BCB22215254018E1002D997F /* BaseStackVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseStackVC.swift; sourceTree = "<group>"; };
 		BCB2221A25401921002D997F /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		BCB2229025402DF6002D997F /* UIView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extensions.swift"; sourceTree = "<group>"; };
 		BCB222982540374C002D997F /* Numeric+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Numeric+Extensions.swift"; sourceTree = "<group>"; };
@@ -87,6 +106,10 @@
 		BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsBanner.swift; sourceTree = "<group>"; };
 		BCEA0816254487650006E4C3 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISDK.swift; sourceTree = "<group>"; };
+		BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		BCFE0B5B25455D8D006E9BF1 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		BCFE0B61254562EB006E9BF1 /* SurveyVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyVC.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -99,7 +122,6 @@
 				BCEA07F3254441D40006E4C3 /* MBProgressHUD in Frameworks */,
 				79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */,
 				BCEA07F92544728A0006E4C3 /* KeychainSwift in Frameworks */,
-				BCEA07B8254438360006E4C3 /* RxAlamofire in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -155,6 +177,26 @@
 			path = Auth;
 			sourceTree = "<group>";
 		};
+		BC36BC0725449B190026A12A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				BC36BC0825449B730026A12A /* HomeVC.swift */,
+				BC0A709E254514DC00748577 /* HomeViewModel.swift */,
+				BCFE0B61254562EB006E9BF1 /* SurveyVC.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		BCB06AD3254511F300C88FA9 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */,
+				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
+				BCEA0712254401CA0006E4C3 /* Models */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		BCB221B12540155C002D997F = {
 			isa = PBXGroup;
 			children = (
@@ -196,6 +238,9 @@
 			isa = PBXGroup;
 			children = (
 				BCB221D62540155D002D997F /* Info.plist */,
+				BC0A70B825451CC000748577 /* SurveysList.json */,
+				BC0A70AD25451C4800748577 /* MockSDK.swift */,
+				BC0A70A3254516A500748577 /* HomeViewModelTests.swift */,
 			);
 			path = nimbleTests;
 			sourceTree = "<group>";
@@ -212,7 +257,9 @@
 		BCB22211254018C0002D997F /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
-				BCB22215254018E1002D997F /* BaseViewController.swift */,
+				BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */,
+				BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */,
+				BCB22215254018E1002D997F /* BaseStackVC.swift */,
 				BCEA06EE2543FC020006E4C3 /* BaseButton.swift */,
 				BCEA0816254487650006E4C3 /* BaseView.swift */,
 				BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */,
@@ -227,6 +274,8 @@
 				BCB222982540374C002D997F /* Numeric+Extensions.swift */,
 				BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */,
 				BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */,
+				BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */,
+				BCFE0B5B25455D8D006E9BF1 /* Date+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -235,6 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				BC36BC0325449AF20026A12A /* Auth */,
+				BC36BC0725449B190026A12A /* Home */,
 			);
 			path = Scenes;
 			sourceTree = "<group>";
@@ -243,8 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				BCEA07FD254475F20006E4C3 /* KeychainManager.swift */,
-				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
-				BCEA0712254401CA0006E4C3 /* Models */,
+				BCB06AD3254511F300C88FA9 /* API */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -277,7 +326,6 @@
 			);
 			name = nimble;
 			packageProductDependencies = (
-				BCEA07B7254438360006E4C3 /* RxAlamofire */,
 				BCEA07F2254441D40006E4C3 /* MBProgressHUD */,
 				BCEA07F82544728A0006E4C3 /* KeychainSwift */,
 			);
@@ -357,7 +405,6 @@
 			);
 			mainGroup = BCB221B12540155C002D997F;
 			packageReferences = (
-				BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */,
 				BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				BCEA07F72544728A0006E4C3 /* XCRemoteSwiftPackageReference "keychain-swift" */,
 			);
@@ -386,6 +433,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC0A70B925451CC000748577 /* SurveysList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -523,21 +571,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCB06ACF2545116F00C88FA9 /* BaseViewModel.swift in Sources */,
 				BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */,
 				BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */,
+				BC0A709F254514DC00748577 /* HomeViewModel.swift in Sources */,
+				BCFE0AAD25451FC5006E9BF1 /* APISDK.swift in Sources */,
 				BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */,
 				BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
+				BCFE0B62254562EB006E9BF1 /* SurveyVC.swift in Sources */,
+				BC36BC0925449B730026A12A /* HomeVC.swift in Sources */,
 				BCB2221B25401921002D997F /* LoginVC.swift in Sources */,
+				BCFE0B5C25455D8D006E9BF1 /* Date+Extensions.swift in Sources */,
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */,
+				BCFE0B4325454AD4006E9BF1 /* BaseViewController.swift in Sources */,
 				BCEA0714254403B70006E4C3 /* Response.swift in Sources */,
+				BC36BC3F25450D5D0026A12A /* UIView+Loader.swift in Sources */,
 				BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */,
 				BCEA0812254486C50006E4C3 /* NotificationsBanner.swift in Sources */,
 				BCB222A62540431C002D997F /* ResetPasswordVC.swift in Sources */,
 				BCB2229125402DF6002D997F /* UIView+Extensions.swift in Sources */,
-				BCB22216254018E1002D997F /* BaseViewController.swift in Sources */,
+				BCB22216254018E1002D997F /* BaseStackVC.swift in Sources */,
 				BCEA0817254487650006E4C3 /* BaseView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -547,8 +603,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCEA072C254406140006E4C3 /* Response.swift in Sources */,
-				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
+				BCFE0AD3254524C8006E9BF1 /* HomeViewModel.swift in Sources */,
+				BCFE0AB725451FD5006E9BF1 /* APISDK.swift in Sources */,
+				BCFE0AD72545253B006E9BF1 /* BaseViewModel.swift in Sources */,
 				BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */,
+				BC0A70AE25451C4800748577 /* MockSDK.swift in Sources */,
+				BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +812,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QPW4XRTF2N;
 				INFOPLIST_FILE = nimbleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -775,6 +836,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
+				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = QPW4XRTF2N;
 				INFOPLIST_FILE = nimbleTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -875,14 +937,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.6.2;
-			};
-		};
 		BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/jdg/MBProgressHUD.git";
@@ -902,11 +956,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BCEA07B7254438360006E4C3 /* RxAlamofire */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = BCEA07B6254438360006E4C3 /* XCRemoteSwiftPackageReference "RxAlamofire" */;
-			productName = RxAlamofire;
-		};
 		BCEA07F2254441D40006E4C3 /* MBProgressHUD */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = BCEA07F1254441D40006E4C3 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;

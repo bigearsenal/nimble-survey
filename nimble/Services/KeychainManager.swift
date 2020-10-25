@@ -9,7 +9,6 @@ import Foundation
 import KeychainSwift
 
 struct KeychainManager {
-    typealias ResponseToken = NimbleSurveySDK.ResponseToken
     // MARK: - Constants
     private static let tokenKeychainKey = "_NimbleSurveySDK.ResponseToken"
     

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AuthVC: BaseViewController {
+class AuthVC: BaseStackVC {
     override var preferredStatusBarStyle: UIStatusBarStyle {.lightContent}
     override var padding: UIEdgeInsets {.init(top: 24, left: 24, bottom: 24, right: 24)}
     

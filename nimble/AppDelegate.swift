@@ -27,9 +27,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let rootVC: UIViewController
                 switch state {
                 case .authorized:
-                    rootVC = UINavigationController(rootViewController: BaseViewController())
+                    rootVC = BENavigationController(rootViewController: HomeVC())
                 case .unauthorized:
-                    rootVC = UINavigationController(rootViewController: LoginVC())
+                    rootVC = BENavigationController(rootViewController: LoginVC())
                 }
                 self.window?.rootViewController = rootVC
             })

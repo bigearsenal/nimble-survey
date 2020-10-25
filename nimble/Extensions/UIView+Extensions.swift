@@ -41,4 +41,16 @@ extension UIView {
         isUserInteractionEnabled = true
         return self
     }
+    
+    @discardableResult
+    func hidden() -> Self {
+        isHidden = true
+        return self
+    }
+    
+    @discardableResult
+    func setTag(_ tag: Int) -> Self {
+        self.tag = tag
+        return self
+    }
 }

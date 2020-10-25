@@ -11,7 +11,9 @@ import RxCocoa
 import Alamofire
 import RxAlamofire
 
-struct NimbleSurveySDK {
+struct NimbleSurveySDK: APISDK {
+    typealias Token = ResponseData<ResponseToken>
+    typealias Surveys = [ResponseData<ResponseSurvey>]
     enum AuthState: Equatable {
         case authorized, unauthorized
     }
@@ -41,7 +43,7 @@ struct NimbleSurveySDK {
         authState = BehaviorRelay<AuthState>(value: KeychainManager.token == nil ? .unauthorized: .authorized)
     }
     
-    // MARK: - Methods
+    // MARK: - Authentications
     func loginWithEmail(_ email: String, password: String) -> Completable {
         let req = request(
             method: .post,
@@ -52,8 +54,7 @@ struct NimbleSurveySDK {
                 "password": password
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseToken>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<Token>.self
         )
         return handleTokenRequest(req)
     }
@@ -68,10 +69,33 @@ struct NimbleSurveySDK {
                 ]
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseMeta>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<ResponseMeta>.self
         )
         .map {$0.meta?.message ?? "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."}
+    }
+    
+    func logout() -> Completable {
+        request(
+            method: .post,
+            path: "/oauth/revoke",
+            parameters:
+                ["token": KeychainManager.token?.access_token ?? ""],
+            authorizationRequired: false,
+            decodedTo: ResponseEmpty.self
+        )
+        .asCompletable()
+        .catchError {_ in return .empty()}
+    }
+    
+    // MARK: - Surveys
+    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]> {
+        request(
+            method: .get,
+            path: "/surveys?page[number]=\(pageNumber)&page[size]=\(pageSize)",
+            shouldAddClientInfo: false,
+            decodedTo: Response<Surveys>.self
+        )
+        .map {$0.data?.compactMap {$0.attributes} ?? []}
     }
     
     // MARK: - Helper
@@ -84,8 +108,7 @@ struct NimbleSurveySDK {
                 "refresh_token": KeychainManager.token?.refresh_token ?? ""
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseToken>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<Token>.self
         )
         return handleTokenRequest(req)
     }
@@ -97,15 +120,26 @@ struct NimbleSurveySDK {
     func request<T: Decodable>(
         method: HTTPMethod,
         path: String,
-        parameters: [String: Any]?,
+        parameters: [String: Any]? = nil,
         authorizationRequired: Bool = true,
         shouldAddClientInfo: Bool = true,
-        decodedTo: T.Type,
-        retryOnTokenExpired: Bool = true
+        decodedTo: T.Type
     ) -> Single<T>{
         var headers: HTTPHeaders = []
-        if authorizationRequired, let token = KeychainManager.token?.access_token {
-            headers = [.authorization(bearerToken: token)]
+        if authorizationRequired {
+            guard let responseToken = KeychainManager.token else {
+                // TODO: - Logout
+                return self.logout()
+                    .andThen(.error(NBError.invalidToken))
+            }
+            let expiredDate = responseToken.created_at + responseToken.expires_in
+            
+            if expiredDate > UInt(Date().timeIntervalSince1970) {
+                headers = [.authorization(bearerToken: responseToken.access_token)]
+            } else {
+                return self.refreshToken()
+                    .andThen(request(method: method, path: path, parameters: parameters, authorizationRequired: authorizationRequired, shouldAddClientInfo: shouldAddClientInfo, decodedTo: decodedTo))
+            }
         }
         var parameters = parameters
         if shouldAddClientInfo {
@@ -116,42 +150,25 @@ struct NimbleSurveySDK {
         return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
             .responseData()
             .map {(response, data) -> T in
+                // Print
+                debugPrint(String(data: data, encoding: .utf8) ?? "")
+                
+                // Print
                 guard (200..<300).contains(response.statusCode) else {
                     // Decode errror
                     throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
                 }
-                
                 return try JSONDecoder().decode(T.self, from: data)
             }
             .take(1)
             .asSingle()
-            .catchError {
-                if let error = $0 as? Error {
-                    // Retry
-                    if error.code == "invalid_token" && retryOnTokenExpired {
-                        return self.refreshToken()
-                            .andThen(
-                                self.request(
-                                    method: method,
-                                    path: path,
-                                    parameters: parameters,
-                                    authorizationRequired: authorizationRequired,
-                                    shouldAddClientInfo: shouldAddClientInfo,
-                                    decodedTo: decodedTo,
-                                    retryOnTokenExpired: false
-                                )
-                            )
-                    }
-                }
-                throw $0
-            }
     }
     
-    private func handleTokenRequest(_ request: Single<Response<ResponseToken>>) -> Completable {
+    private func handleTokenRequest(_ request: Single<Response<Token>>) -> Completable {
         request
             .map { result -> ResponseToken in
                 guard let token = result.data?.attributes else {
-                    throw Error.unknown
+                    throw NBError.unknown
                 }
                 try KeychainManager.saveToken(token)
                 return token
