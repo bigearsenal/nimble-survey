@@ -19,6 +19,8 @@ struct NBError: Swift.Error, Decodable {
     
     static var unknown: NBError {NBError(detail: nil, code: nil, source: nil)}
     
+    static var invalidToken: NBError {NBError(detail: "The access token is invalid", code: "invalid_token", source: "unauthorized")}
+    
     var localizedDescription: String {(detail ?? "") + (code != nil ? ", code: \(code!)": "")}
 }
 

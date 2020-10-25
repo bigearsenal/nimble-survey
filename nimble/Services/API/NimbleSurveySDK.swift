@@ -53,8 +53,7 @@ struct NimbleSurveySDK: APISDK {
                 "password": password
             ],
             authorizationRequired: false,
-            decodedTo: Response<Token>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<Token>.self
         )
         return handleTokenRequest(req)
     }
@@ -69,10 +68,22 @@ struct NimbleSurveySDK: APISDK {
                 ]
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseMeta>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<ResponseMeta>.self
         )
         .map {$0.meta?.message ?? "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."}
+    }
+    
+    func logout() -> Completable {
+        request(
+            method: .post,
+            path: "/oauth/revoke",
+            parameters:
+                ["token": KeychainManager.token?.access_token ?? ""],
+            authorizationRequired: false,
+            decodedTo: ResponseEmpty.self
+        )
+        .asCompletable()
+        .catchError {_ in return .empty()}
     }
     
     // MARK: - Surveys
@@ -96,8 +107,7 @@ struct NimbleSurveySDK: APISDK {
                 "refresh_token": KeychainManager.token?.refresh_token ?? ""
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseData<ResponseToken>>.self,
-            retryOnTokenExpired: false
+            decodedTo: Response<Token>.self
         )
         return handleTokenRequest(req)
     }
@@ -112,12 +122,23 @@ struct NimbleSurveySDK: APISDK {
         parameters: [String: Any]? = nil,
         authorizationRequired: Bool = true,
         shouldAddClientInfo: Bool = true,
-        decodedTo: T.Type,
-        retryOnTokenExpired: Bool = true
+        decodedTo: T.Type
     ) -> Single<T>{
         var headers: HTTPHeaders = []
-        if authorizationRequired, let token = KeychainManager.token?.access_token {
-            headers = [.authorization(bearerToken: token)]
+        if authorizationRequired {
+            guard let responseToken = KeychainManager.token else {
+                // TODO: - Logout
+                return self.logout()
+                    .andThen(.error(NBError.invalidToken))
+            }
+            let expiredDate = responseToken.created_at + responseToken.expires_in
+            
+            if expiredDate > UInt(Date().timeIntervalSince1970) {
+                headers = [.authorization(bearerToken: responseToken.access_token)]
+            } else {
+                return self.refreshToken()
+                    .andThen(request(method: method, path: path, parameters: parameters, authorizationRequired: authorizationRequired, shouldAddClientInfo: shouldAddClientInfo, decodedTo: decodedTo))
+            }
         }
         var parameters = parameters
         if shouldAddClientInfo {
@@ -137,26 +158,6 @@ struct NimbleSurveySDK: APISDK {
             }
             .take(1)
             .asSingle()
-            .catchError {
-                if let error = $0 as? NBError {
-                    // Retry
-                    if error.code == "invalid_token" && retryOnTokenExpired {
-                        return self.refreshToken()
-                            .andThen(
-                                self.request(
-                                    method: method,
-                                    path: path,
-                                    parameters: parameters,
-                                    authorizationRequired: authorizationRequired,
-                                    shouldAddClientInfo: shouldAddClientInfo,
-                                    decodedTo: decodedTo,
-                                    retryOnTokenExpired: false
-                                )
-                            )
-                    }
-                }
-                throw $0
-            }
     }
     
     private func handleTokenRequest(_ request: Single<Response<Token>>) -> Completable {

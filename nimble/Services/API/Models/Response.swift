@@ -48,6 +48,8 @@ struct ResponseMeta: Decodable {
     let records: UInt?
 }
 
+struct ResponseEmpty: Decodable {}
+
 
 
 
