@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let window = UIWindow(frame: UIScreen.main.bounds)
         self.window = window
-        self.window?.makeKeyAndVisible()
         
         // observe AuthState
         NimbleSurveySDK.shared.authState
@@ -31,6 +30,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 case .unauthorized:
                     rootVC = BENavigationController(rootViewController: LoginVC())
                 }
+                window.makeKeyAndVisible()
+                UIView.transition(with: window, duration: 0.3, options: .transitionCrossDissolve) {}
+
                 self.window?.rootViewController = rootVC
             })
             .disposed(by: disposeBag)
