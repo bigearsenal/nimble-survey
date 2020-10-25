@@ -13,6 +13,7 @@ import RxAlamofire
 
 struct NimbleSurveySDK: APISDK {
     typealias Token = ResponseData<ResponseToken>
+    typealias Surveys = [ResponseData<ResponseSurvey>]
     enum AuthState: Equatable {
         case authorized, unauthorized
     }
@@ -92,9 +93,9 @@ struct NimbleSurveySDK: APISDK {
             method: .get,
             path: "/surveys?page[number]=\(pageNumber)&page[size]=\(pageSize)",
             shouldAddClientInfo: false,
-            decodedTo: Response<[ResponseSurvey]>.self
+            decodedTo: Response<Surveys>.self
         )
-        .map {$0.data ?? []}
+        .map {$0.data?.compactMap {$0.attributes} ?? []}
     }
     
     // MARK: - Helper
@@ -149,11 +150,14 @@ struct NimbleSurveySDK: APISDK {
         return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
             .responseData()
             .map {(response, data) -> T in
+                // Print
+                debugPrint(String(data: data, encoding: .utf8) ?? "")
+                
+                // Print
                 guard (200..<300).contains(response.statusCode) else {
                     // Decode errror
                     throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
                 }
-                
                 return try JSONDecoder().decode(T.self, from: data)
             }
             .take(1)

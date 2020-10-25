@@ -10,6 +10,7 @@ target 'nimble' do
   pod 'Action'
   pod 'RxAlamofire'
   pod 'RxCocoa'
+  pod 'SDWebImage'
   
   target 'nimbleTests' do
     inherit! :search_paths

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SDWebImage
 
 class HomeVC: BaseViewController {
     let loadingTag = 777
@@ -14,11 +15,7 @@ class HomeVC: BaseViewController {
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
     
     // MARK: - Subviews
-    lazy var bgImageView = UIImageView(forAutoLayout: ())
-    lazy var fullDatelabel = UILabel(textSize: 13, textColor: .white)
-    lazy var shortDateLabel = UILabel(textSize: 34, weight: .semibold, textColor: .white)
-    lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
-    
+    lazy var avatarLoadingImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     lazy var topLoadingStackView = createTopLoadingView()
     lazy var bottomLoadingStackView = createBottomLoadingView()
     
@@ -29,10 +26,6 @@ class HomeVC: BaseViewController {
         super.setUp()
         // background
         view.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 26/255, alpha: 1)
-        view.addSubview(bgImageView)
-        
-        // configure header
-        configureHeader()
         
         // add loading views
         addLoadingViews()
@@ -49,36 +42,22 @@ class HomeVC: BaseViewController {
                 self?.setUpWithLoadingState(loadingState)
             })
             .disposed(by: disposeBag)
-        
-        viewModel.
     }
     
     func setUpWithLoadingState(_ state: HomeViewModel.LoadingState) {
         errorView.isHidden = true
         switch state {
         case .loading:
-            bgImageView.isHidden = true
             topLoadingStackView.isHidden = false
-            fullDatelabel.isHidden = true
-            shortDateLabel.isHidden = true
-            avatarImageView.showLoading()
             bottomLoadingStackView.isHidden = false
         case .loaded:
-            bgImageView.isHidden = false
             topLoadingStackView.isHidden = true
-            fullDatelabel.isHidden = false
-            shortDateLabel.isHidden = false
-            avatarImageView.hideLoading()
             bottomLoadingStackView.isHidden = true
         case .error(let error):
             errorView.isHidden = false
             errorLabel.text = (error as? NBError)?.localizedDescription ?? error.localizedDescription
-            bgImageView.isHidden = true
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
-            fullDatelabel.isHidden = true
-            shortDateLabel.isHidden = true
-            avatarImageView.hideLoading()
         }
     }
     
@@ -88,25 +67,6 @@ class HomeVC: BaseViewController {
     }
     
     // MARK: - Helpers
-    private func configureHeader() {
-        // header stackView
-        let headerStackView: UIStackView = {
-            let stackView = UIStackView(axis: .horizontal, spacing: 10, alignment: .center, distribution: .fill)
-            let labelsStackView = UIStackView(axis: .vertical, spacing: 4, alignment: .leading, distribution: .fill)
-            labelsStackView.addArrangedSubview(fullDatelabel)
-            labelsStackView.addArrangedSubview(shortDateLabel)
-            stackView.addArrangedSubview(labelsStackView)
-            stackView.addArrangedSubview(UIView(forAutoLayout: ()))
-            stackView.addArrangedSubview(avatarImageView)
-            return stackView
-        }()
-        
-        view.addSubview(headerStackView)
-        headerStackView.autoPinEdge(toSuperviewSafeArea: .top, withInset: 16)
-        headerStackView.autoPinEdge(toSuperviewSafeArea: .leading, withInset: 20)
-        headerStackView.autoPinEdge(toSuperviewSafeArea: .trailing, withInset: 20)
-    }
-    
     private func createLoadingView(width: CGFloat) -> UIView {
         UIView(width: width, height: 16, cornerRadius: 8)
     }
