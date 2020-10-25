@@ -24,14 +24,7 @@ class HomeVC: BaseViewController {
         pc.addTarget(self, action: #selector(pageControlDidChangePage), for: .touchUpInside)
         return pc
     }()
-    lazy var pageCollectionView: UICollectionView = {
-        let collectionView = UICollectionView.horizontalFlow(
-            cellType: SurveyCell.self
-        )
-        collectionView.layer.masksToBounds = false
-        collectionView.isPagingEnabled = true
-        return collectionView
-    }()
+    lazy var pageCollectionView = SurveyCollectionView()
     
     lazy var avatarImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
         .onTap(self, action: #selector(avatarButtonDidTouch))
