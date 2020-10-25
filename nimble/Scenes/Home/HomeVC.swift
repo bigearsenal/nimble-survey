@@ -15,17 +15,21 @@ class HomeVC: BaseViewController {
     
     // MARK: - Properties
     lazy var viewModel = HomeViewModel(sdk: NimbleSurveySDK.shared)
-    var currentPageIndex = 0
-    var viewControllers = [SurveyVC]()
     
     // MARK: - Subviews
+    lazy var bgImageView = UIImageView(contentMode: .scaleAspectFill)
     lazy var pageControl: UIPageControl = {
         let pc = UIPageControl(forAutoLayout: ())
         pc.addTarget(self, action: #selector(pageControlDidChangePage), for: .touchUpInside)
         return pc
     }()
-    lazy var containerView = UIView(forAutoLayout: ())
-    lazy var pageVC = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+    lazy var pageCollectionView: UICollectionView = {
+        let collectionView = UICollectionView.horizontalFlow(
+            cellType: SurveyCell.self
+        )
+        collectionView.layer.masksToBounds = false
+        return collectionView
+    }()
     
     lazy var avatarLoadingImageView = UIImageView(width: 36, height: 36, cornerRadius: 18)
     lazy var topLoadingStackView = createTopLoadingView()
@@ -40,14 +44,12 @@ class HomeVC: BaseViewController {
         // background
         view.backgroundColor = UIColor(red: 21/255, green: 21/255, blue: 26/255, alpha: 1)
         
+        view.addSubview(bgImageView)
+        bgImageView.autoPinEdgesToSuperviewEdges()
+        
         // add pageVC
-        view.addSubview(containerView)
-        containerView.autoPinEdgesToSuperviewEdges()
-        addChild(pageVC)
-        pageVC.view.configureForAutoLayout()
-        containerView.addSubview(pageVC.view)
-        pageVC.view.autoPinEdgesToSuperviewEdges()
-        pageVC.didMove(toParent: self)
+        view.addSubview(pageCollectionView)
+        pageCollectionView.autoPinEdgesToSuperviewEdges()
         
         // add page controll
         view.addSubview(pageControl)
@@ -70,16 +72,21 @@ class HomeVC: BaseViewController {
             })
             .disposed(by: disposeBag)
         
+        viewModel.dataRelay.filter {$0 != nil}.map {$0!}
+            .bind(to: pageCollectionView.rx.items(cellIdentifier: "SurveyCell", cellType: SurveyCell.self)) { _, model, cell in
+                cell.setUpWithSurvey(model)
+            }
+            .disposed(by: disposeBag)
+        
         viewModel.surveys
             .subscribe(onNext: { [weak self] surveys in
-                self?.viewControllers = surveys.map { survey -> SurveyVC in
-                    let vc = SurveyVC()
-                    vc.setUpWithSurvey(survey)
-                    return vc
-                }
+                
                 self?.pageControl.numberOfPages = surveys.count
                 self?.moveToItemAtIndex(0)
             })
+            .disposed(by: disposeBag)
+        
+        pageCollectionView.rx.setDelegate(self)
             .disposed(by: disposeBag)
     }
     
@@ -87,14 +94,17 @@ class HomeVC: BaseViewController {
         errorView.isHidden = true
         switch state {
         case .loading:
+            pageCollectionView.isHidden = true
             topLoadingStackView.isHidden = false
             bottomLoadingStackView.isHidden = false
             avatarLoadingImageView.isHidden = false
         case .loaded:
+            pageCollectionView.isHidden = false
             topLoadingStackView.isHidden = true
             bottomLoadingStackView.isHidden = true
             avatarLoadingImageView.isHidden = true
         case .error(let error):
+            pageCollectionView.isHidden = true
             errorView.isHidden = false
             errorLabel.text = (error as? NBError)?.localizedDescription ?? error.localizedDescription
             topLoadingStackView.isHidden = true
@@ -104,13 +114,13 @@ class HomeVC: BaseViewController {
     }
     
     func moveToItemAtIndex(_ index: Int) {
-        guard viewControllers.count > index else { return }
-        let vc = viewControllers[index]
-        
-        pageVC.setViewControllers([vc], direction: index > currentPageIndex ? .forward : .reverse, animated: true, completion: nil)
-        pageControl.currentPage = index
-        
-        currentPageIndex = index
+//        guard viewControllers.count > index else { return }
+//        let vc = viewControllers[index]
+//
+//        pageVC.setViewControllers([vc], direction: index > currentPageIndex ? .forward : .reverse, animated: true, completion: nil)
+//        pageControl.currentPage = index
+//
+//        currentPageIndex = index
     }
     
     // MARK: - Actions
@@ -171,5 +181,11 @@ class HomeVC: BaseViewController {
         avatarLoadingImageView.autoPinEdge(toSuperviewEdge: .trailing, withInset: 20)
         avatarLoadingImageView.autoAlignAxis(.horizontal, toSameAxisOf: topLoadingStackView)
         avatarLoadingImageView.showLoading()
+    }
+}
+
+extension HomeVC: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        view.bounds.size
     }
 }
