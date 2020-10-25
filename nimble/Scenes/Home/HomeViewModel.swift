@@ -11,7 +11,7 @@ import RxSwift
 class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
     let apiSDK: APISDK
     
-    init(sdk: APISDK = NimbleSurveySDK.shared) {
+    init(sdk: APISDK) {
         apiSDK = sdk
         super.init()
     }

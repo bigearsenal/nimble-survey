@@ -11,7 +11,20 @@ import RxCocoa
 
 class BaseViewModel<DataType> {
     // MARK: - Nested type
-    enum LoadingState {
+    enum LoadingState: Equatable {
+        static func == (lhs: Self, rhs: Self) -> Bool {
+            switch (lhs, rhs) {
+            case (.loading, .loading):
+                return true
+            case (.loaded, .loaded):
+                return true
+            case (.error(let err1), .error(let err2)):
+                return err1.localizedDescription == err2.localizedDescription
+            default:
+                return false
+            }
+        }
+        
         case loading
         case loaded
         case error(_ error: Error)

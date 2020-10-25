@@ -13,18 +13,18 @@ struct MockSDK: APISDK {
     private init() {}
     
     func loginWithEmail(_ email: String, password: String) -> Completable {
-        .empty()
+        Completable.empty().delay(.milliseconds(800), scheduler: MainScheduler.instance)
     }
     
     func resetPassword(email: String) -> Single<String> {
-        .just("")
+        Single<String>.just("").delay(.milliseconds(800), scheduler: MainScheduler.instance)
     }
     
     func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]> {
         do {
-            return .just(try getMockList())
+            return Single<[ResponseSurvey]>.just(try getMockList()).delay(.milliseconds(800), scheduler: MainScheduler.instance)
         } catch {
-            return .error(error)
+            return Single<[ResponseSurvey]>.error(error).delay(.milliseconds(800), scheduler: MainScheduler.instance)
         }
     }
     
