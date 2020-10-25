@@ -7,21 +7,19 @@
 
 import Foundation
 
-extension NimbleSurveySDK {
-    // MARK: - Nested type    
-    struct ResponseErrors: Decodable {
-        var errors: [Error]?
-    }
+// MARK: - Nested type
+struct ResponseErrors: Decodable {
+    var errors: [NBError]?
+}
 
-    struct Error: Swift.Error, Decodable {
-        let detail: String?
-        let code: String?
-        let source: String?
-        
-        static var unknown: Error {Error(detail: nil, code: nil, source: nil)}
-        
-        var localizedDescription: String {(detail ?? "") + (code != nil ? ", code: \(code!)": "")}
-    }
+struct NBError: Swift.Error, Decodable {
+    let detail: String?
+    let code: String?
+    let source: String?
+    
+    static var unknown: NBError {NBError(detail: nil, code: nil, source: nil)}
+    
+    var localizedDescription: String {(detail ?? "") + (code != nil ? ", code: \(code!)": "")}
 }
 
 

@@ -11,6 +11,9 @@
 		79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */; };
 		BC0A709F254514DC00748577 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A709E254514DC00748577 /* HomeViewModel.swift */; };
 		BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70A3254516A500748577 /* HomeViewModelTests.swift */; };
+		BC0A70A925451C2300748577 /* SurveysListDecodingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70A825451C2300748577 /* SurveysListDecodingTests.swift */; };
+		BC0A70AE25451C4800748577 /* MockSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70AD25451C4800748577 /* MockSDK.swift */; };
+		BC0A70B925451CC000748577 /* SurveysList.json in Resources */ = {isa = PBXBuildFile; fileRef = BC0A70B825451CC000748577 /* SurveysList.json */; };
 		BC36BC0925449B730026A12A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC0825449B730026A12A /* HomeVC.swift */; };
 		BC36BC3F25450D5D0026A12A /* UIView+Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */; };
 		BCB06ACF2545116F00C88FA9 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */; };
@@ -27,7 +30,6 @@
 		BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06DD2543F9DC0006E4C3 /* NSPredicate+Extensions.swift */; };
 		BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA06EE2543FC020006E4C3 /* BaseButton.swift */; };
 		BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
-		BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */; };
 		BCEA0714254403B70006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
 		BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA071B254403C80006E4C3 /* ResponseErrors.swift */; };
 		BCEA072C254406140006E4C3 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0713254403B70006E4C3 /* Response.swift */; };
@@ -39,6 +41,8 @@
 		BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */; };
 		BCEA0812254486C50006E4C3 /* NotificationsBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */; };
 		BCEA0817254487650006E4C3 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCEA0816254487650006E4C3 /* BaseView.swift */; };
+		BCFE0AAD25451FC5006E9BF1 /* APISDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */; };
+		BCFE0AB725451FD5006E9BF1 /* APISDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +73,9 @@
 		A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble_nimbleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0A709E254514DC00748577 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		BC0A70A3254516A500748577 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
+		BC0A70A825451C2300748577 /* SurveysListDecodingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveysListDecodingTests.swift; sourceTree = "<group>"; };
+		BC0A70AD25451C4800748577 /* MockSDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSDK.swift; sourceTree = "<group>"; };
+		BC0A70B825451CC000748577 /* SurveysList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = SurveysList.json; sourceTree = "<group>"; };
 		BC36BC0825449B730026A12A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loader.swift"; sourceTree = "<group>"; };
 		BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -97,6 +104,7 @@
 		BCEA080C254480F90006E4C3 /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsBanner.swift; sourceTree = "<group>"; };
 		BCEA0816254487650006E4C3 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISDK.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -177,6 +185,7 @@
 		BCB06AD3254511F300C88FA9 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */,
 				BCEA07002543FF5B0006E4C3 /* NimbleSurveySDK.swift */,
 				BCEA0712254401CA0006E4C3 /* Models */,
 			);
@@ -224,6 +233,9 @@
 			isa = PBXGroup;
 			children = (
 				BCB221D62540155D002D997F /* Info.plist */,
+				BC0A70B825451CC000748577 /* SurveysList.json */,
+				BC0A70AD25451C4800748577 /* MockSDK.swift */,
+				BC0A70A825451C2300748577 /* SurveysListDecodingTests.swift */,
 				BC0A70A3254516A500748577 /* HomeViewModelTests.swift */,
 			);
 			path = nimbleTests;
@@ -417,6 +429,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC0A70B925451CC000748577 /* SurveysList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,6 +571,7 @@
 				BCEA07FE254475F20006E4C3 /* KeychainManager.swift in Sources */,
 				BCEA06EF2543FC020006E4C3 /* BaseButton.swift in Sources */,
 				BC0A709F254514DC00748577 /* HomeViewModel.swift in Sources */,
+				BCFE0AAD25451FC5006E9BF1 /* APISDK.swift in Sources */,
 				BCEA071C254403C80006E4C3 /* ResponseErrors.swift in Sources */,
 				BCEA07012543FF5B0006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCB222A1254042C6002D997F /* AuthVC.swift in Sources */,
@@ -582,8 +596,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BCEA072C254406140006E4C3 /* Response.swift in Sources */,
-				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
+				BCFE0AB725451FD5006E9BF1 /* APISDK.swift in Sources */,
 				BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */,
+				BC0A70A925451C2300748577 /* SurveysListDecodingTests.swift in Sources */,
+				BC0A70AE25451C4800748577 /* MockSDK.swift in Sources */,
 				BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

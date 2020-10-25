@@ -11,12 +11,6 @@ import RxCocoa
 import Alamofire
 import RxAlamofire
 
-protocol APISDK {
-    func loginWithEmail(_ email: String, password: String) -> Completable
-    func resetPassword(email: String) -> Single<String>
-    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]>
-}
-
 struct NimbleSurveySDK: APISDK {
     typealias Token = ResponseData<ResponseToken>
     enum AuthState: Equatable {
@@ -144,7 +138,7 @@ struct NimbleSurveySDK: APISDK {
             .take(1)
             .asSingle()
             .catchError {
-                if let error = $0 as? Error {
+                if let error = $0 as? NBError {
                     // Retry
                     if error.code == "invalid_token" && retryOnTokenExpired {
                         return self.refreshToken()
@@ -169,7 +163,7 @@ struct NimbleSurveySDK: APISDK {
         request
             .map { result -> ResponseToken in
                 guard let token = result.data?.attributes else {
-                    throw Error.unknown
+                    throw NBError.unknown
                 }
                 try KeychainManager.saveToken(token)
                 return token
