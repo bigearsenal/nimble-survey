@@ -32,29 +32,35 @@ class HomeViewModelTests: XCTestCase {
         XCTAssertEqual(list.count, 2)
     }
 
-    func testHomeViewModel() throws {
-        // create testable observers
-        let surveys = scheduler.createObserver([ResponseSurvey].self)
-        let loadingState = scheduler.createObserver(HomeViewModel.LoadingState.self)
-        
-        mockVM.dataRelay.map {$0 ?? []}
-            .asDriver(onErrorJustReturn: [])
-            .drive(surveys)
-            .disposed(by: disposeBag)
-        
-        mockVM.loadingStateRelay
-            .asDriver()
-            .drive(loadingState)
-            .disposed(by: disposeBag)
-    
-        // when fetching surveys
-        scheduler.createColdObservable([.next(0, ())])
-            .bind(to: mockVM.reloadSubject)
-            .disposed(by: disposeBag)
-        
-        scheduler.start()
-        
-        XCTAssertEqual(loadingState.events, [.next(0, .loading)])
-    }
+//    func testHomeViewModel() throws {
+//        // create testable observers
+//        let surveys = scheduler.createObserver([ResponseSurvey].self)
+//        let loadingState = scheduler.createObserver(HomeViewModel.LoadingState.self)
+//        let reloadSubject = scheduler.createObserver(Void.self)
+//        
+//        mockVM.dataRelay.map {$0 ?? []}
+//            .asDriver(onErrorJustReturn: [])
+//            .drive(surveys)
+//            .disposed(by: disposeBag)
+//        
+//        mockVM.loadingStateRelay
+//            .asDriver()
+//            .drive(loadingState)
+//            .disposed(by: disposeBag)
+//        
+//        mockVM.reloadSubject
+//            .take(4)
+//            .bind(to: reloadSubject)
+//            .disposed(by: disposeBag)
+//    
+//        // when fetching surveys
+//        scheduler.createColdObservable([.next(5, ()), .next(10, ()), .next(15, ())])
+//            .bind(to: mockVM.reloadSubject)
+//            .disposed(by: disposeBag)
+//        
+//        scheduler.start()
+//        
+//        XCTAssertEqual(loadingState.events, [.next(0, .loading)])
+//    }
 
 }

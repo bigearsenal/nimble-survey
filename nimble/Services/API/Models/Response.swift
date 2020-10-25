@@ -26,7 +26,7 @@ struct ResponseToken: Codable {
     let created_at: UInt
 }
 
-struct ResponseSurvey: Decodable {
+struct ResponseSurvey: Decodable, Equatable {
     let title: String?
     let description: String?
     let thank_email_above_threshold: String?

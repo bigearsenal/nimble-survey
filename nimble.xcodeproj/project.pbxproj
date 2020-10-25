@@ -43,6 +43,7 @@
 		BCFE0AB725451FD5006E9BF1 /* APISDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */; };
 		BCFE0AD3254524C8006E9BF1 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A709E254514DC00748577 /* HomeViewModel.swift */; };
 		BCFE0AD72545253B006E9BF1 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */; };
+		BCFE0B4325454AD4006E9BF1 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */; };
 		BDC89749013F64137D55E3C8 /* Pods_nimble_nimbleUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -104,6 +105,7 @@
 		BCEA0811254486C50006E4C3 /* NotificationsBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsBanner.swift; sourceTree = "<group>"; };
 		BCEA0816254487650006E4C3 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		BCFE0AAC25451FC5006E9BF1 /* APISDK.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISDK.swift; sourceTree = "<group>"; };
+		BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimbleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -251,6 +253,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */,
+				BCFE0B4225454AD4006E9BF1 /* BaseViewController.swift */,
 				BCB22215254018E1002D997F /* BaseStackVC.swift */,
 				BCEA06EE2543FC020006E4C3 /* BaseButton.swift */,
 				BCEA0816254487650006E4C3 /* BaseView.swift */,
@@ -575,6 +578,7 @@
 				BCB222992540374C002D997F /* Numeric+Extensions.swift in Sources */,
 				BCB221BE2540155C002D997F /* AppDelegate.swift in Sources */,
 				BCEA06DE2543F9DC0006E4C3 /* NSPredicate+Extensions.swift in Sources */,
+				BCFE0B4325454AD4006E9BF1 /* BaseViewController.swift in Sources */,
 				BCEA0714254403B70006E4C3 /* Response.swift in Sources */,
 				BC36BC3F25450D5D0026A12A /* UIView+Loader.swift in Sources */,
 				BCEA080D254480F90006E4C3 /* UIViewController+Extensions.swift in Sources */,

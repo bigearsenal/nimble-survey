@@ -8,10 +8,9 @@
 import Foundation
 import RxSwift
 
-class BaseStackVC: BEViewController {
+class BaseStackVC: BaseViewController {
     var padding: UIEdgeInsets { UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10) }
     
-    let disposeBag = DisposeBag()
     lazy var scrollView = ContentHuggingScrollView(scrollableAxis: .vertical)
     lazy var stackView = UIStackView(axis: .vertical, spacing: 10, alignment: .fill, distribution: .fill)
     
