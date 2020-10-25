@@ -31,6 +31,10 @@ class BaseViewModel<DataType> {
     func bind() {
         reloadSubject
             .flatMap {_ in self.request()}
+            .do(onError: {self.loadingStateRelay.accept(.error($0))},
+                onCompleted: {self.loadingStateRelay.accept(.loaded)},
+                onSubscribe: {self.loadingStateRelay.accept(.loading)}
+            )
             .subscribe { newData in
                 self.dataRelay.accept(newData)
             }
