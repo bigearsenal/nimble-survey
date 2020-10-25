@@ -14,9 +14,11 @@ import RxAlamofire
 protocol APISDK {
     func loginWithEmail(_ email: String, password: String) -> Completable
     func resetPassword(email: String) -> Single<String>
+    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]>
 }
 
 struct NimbleSurveySDK: APISDK {
+    typealias Token = ResponseData<ResponseToken>
     enum AuthState: Equatable {
         case authorized, unauthorized
     }
@@ -46,7 +48,7 @@ struct NimbleSurveySDK: APISDK {
         authState = BehaviorRelay<AuthState>(value: KeychainManager.token == nil ? .unauthorized: .authorized)
     }
     
-    // MARK: - Methods
+    // MARK: - Authentications
     func loginWithEmail(_ email: String, password: String) -> Completable {
         let req = request(
             method: .post,
@@ -57,7 +59,7 @@ struct NimbleSurveySDK: APISDK {
                 "password": password
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseToken>.self,
+            decodedTo: Response<Token>.self,
             retryOnTokenExpired: false
         )
         return handleTokenRequest(req)
@@ -79,6 +81,17 @@ struct NimbleSurveySDK: APISDK {
         .map {$0.meta?.message ?? "If your email address exists in our database, you will receive a password recovery link at your email address in a few minutes."}
     }
     
+    // MARK: - Surveys
+    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]> {
+        request(
+            method: .get,
+            path: "/surveys?page[number]=\(pageNumber)&page[size]=\(pageSize)",
+            shouldAddClientInfo: false,
+            decodedTo: Response<[ResponseSurvey]>.self
+        )
+        .map {$0.data ?? []}
+    }
+    
     // MARK: - Helper
     private func refreshToken() -> Completable {
         let req = request(
@@ -89,7 +102,7 @@ struct NimbleSurveySDK: APISDK {
                 "refresh_token": KeychainManager.token?.refresh_token ?? ""
             ],
             authorizationRequired: false,
-            decodedTo: Response<ResponseToken>.self,
+            decodedTo: Response<ResponseData<ResponseToken>>.self,
             retryOnTokenExpired: false
         )
         return handleTokenRequest(req)
@@ -102,7 +115,7 @@ struct NimbleSurveySDK: APISDK {
     func request<T: Decodable>(
         method: HTTPMethod,
         path: String,
-        parameters: [String: Any]?,
+        parameters: [String: Any]? = nil,
         authorizationRequired: Bool = true,
         shouldAddClientInfo: Bool = true,
         decodedTo: T.Type,
@@ -152,7 +165,7 @@ struct NimbleSurveySDK: APISDK {
             }
     }
     
-    private func handleTokenRequest(_ request: Single<Response<ResponseToken>>) -> Completable {
+    private func handleTokenRequest(_ request: Single<Response<Token>>) -> Completable {
         request
             .map { result -> ResponseToken in
                 guard let token = result.data?.attributes else {

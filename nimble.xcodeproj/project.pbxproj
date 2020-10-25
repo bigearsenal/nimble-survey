@@ -10,6 +10,7 @@
 		5FFF0642B2C283935B62D812 /* Pods_nimbleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE74690F25B1633DEE2ABB17 /* Pods_nimbleTests.framework */; };
 		79E13609E6CD6EA3BF4A8175 /* Pods_nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FF49E1D7FB8483F7B797A7D2 /* Pods_nimble.framework */; };
 		BC0A709F254514DC00748577 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A709E254514DC00748577 /* HomeViewModel.swift */; };
+		BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC0A70A3254516A500748577 /* HomeViewModelTests.swift */; };
 		BC36BC0925449B730026A12A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC0825449B730026A12A /* HomeVC.swift */; };
 		BC36BC3F25450D5D0026A12A /* UIView+Loader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */; };
 		BCB06ACF2545116F00C88FA9 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */; };
@@ -67,6 +68,7 @@
 		41E322EE56BEB741A2C63D51 /* Pods-nimble.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-nimble.release.xcconfig"; path = "Target Support Files/Pods-nimble/Pods-nimble.release.xcconfig"; sourceTree = "<group>"; };
 		A1BE180B3DF3B5EC6E497E8A /* Pods_nimble_nimbleUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_nimble_nimbleUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC0A709E254514DC00748577 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		BC0A70A3254516A500748577 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		BC36BC0825449B730026A12A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		BC36BC3E25450D5D0026A12A /* UIView+Loader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Loader.swift"; sourceTree = "<group>"; };
 		BCB06ACE2545116F00C88FA9 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				BCB221D62540155D002D997F /* Info.plist */,
+				BC0A70A3254516A500748577 /* HomeViewModelTests.swift */,
 			);
 			path = nimbleTests;
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				BCEA072C254406140006E4C3 /* Response.swift in Sources */,
 				BCEA070E2543FFD90006E4C3 /* NimbleSurveySDK.swift in Sources */,
 				BCEA0730254406170006E4C3 /* ResponseErrors.swift in Sources */,
+				BC0A70A4254516A500748577 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
