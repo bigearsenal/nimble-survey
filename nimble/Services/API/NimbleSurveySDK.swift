@@ -126,6 +126,8 @@ struct NimbleSurveySDK: APISDK {
         decodedTo: T.Type
     ) -> Single<T>{
         var headers: HTTPHeaders = []
+        
+        var shouldRefreshToken = false
         if authorizationRequired {
             guard let responseToken = KeychainManager.token else {
                 // TODO: - Logout
@@ -137,8 +139,7 @@ struct NimbleSurveySDK: APISDK {
             if expiredDate > UInt(Date().timeIntervalSince1970) {
                 headers = [.authorization(bearerToken: responseToken.access_token)]
             } else {
-                return self.refreshToken()
-                    .andThen(request(method: method, path: path, parameters: parameters, authorizationRequired: authorizationRequired, shouldAddClientInfo: shouldAddClientInfo, decodedTo: decodedTo))
+                shouldRefreshToken = true
             }
         }
         var parameters = parameters
@@ -147,7 +148,7 @@ struct NimbleSurveySDK: APISDK {
             parameters?["client_secret"] = clientSecret as NSString
         }
         
-        return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
+        let request = RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
             .responseData()
             .map {(response, data) -> T in
                 // Print
@@ -162,6 +163,12 @@ struct NimbleSurveySDK: APISDK {
             }
             .take(1)
             .asSingle()
+        
+        if shouldRefreshToken {
+            return refreshToken().andThen(request)
+        } else {
+            return request
+        }
     }
     
     private func handleTokenRequest(_ request: Single<Response<Token>>) -> Completable {
