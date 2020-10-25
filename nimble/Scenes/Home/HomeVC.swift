@@ -49,6 +49,18 @@ class HomeVC: BaseViewController {
         view.addSubview(bgImageView)
         bgImageView.autoPinEdgesToSuperviewEdges()
         
+        view.layoutIfNeeded()
+        
+        let gradView = UIView(frame: bgImageView.frame)
+        let gradient = CAGradientLayer()
+        gradient.frame = gradView.frame
+        gradient.colors = [UIColor.black.withAlphaComponent(0).cgColor, UIColor.black.cgColor]
+        gradient.locations = [0.0, 1.0]
+        gradView.layer.insertSublayer(gradient, at: 0)
+
+        bgImageView.addSubview(gradView)
+        bgImageView.bringSubviewToFront(gradView)
+        
         // avatar
         view.addSubview(avatarImageView)
         avatarImageView.autoPinToTopRightCornerOfSuperviewSafeArea(xInset: 20, yInset: 35)
@@ -60,7 +72,7 @@ class HomeVC: BaseViewController {
         // add page controll
         view.addSubview(pageControl)
         pageControl.autoPinEdge(toSuperviewEdge: .leading, withInset: -20)
-        pageControl.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 206)
+        pageControl.autoPinEdge(toSuperviewSafeArea: .bottom, withInset: 206 - 18)
         
         // add loading views
         addLoadingViews()
