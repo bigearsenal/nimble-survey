@@ -11,7 +11,7 @@ import RxSwift
 protocol APISDK {
     func loginWithEmail(_ email: String, password: String) -> Completable
     func resetPassword(email: String) -> Single<String>
-    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]>
+    func getSurveysList(pageNumber: UInt, pageSize: UInt, returnCacheDataElseLoad: Bool) -> Single<[ResponseSurvey]>
     func getUserProfile() -> Single<ResponseUser>
     func logout() -> Completable
 }

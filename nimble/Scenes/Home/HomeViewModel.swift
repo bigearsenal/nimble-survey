@@ -15,6 +15,7 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
     var surveys: Observable<[ResponseSurvey]> {
         dataRelay.filter {$0 != nil}.map {$0!}
     }
+    var returnCacheDataElseLoad = true
     
     init(sdk: APISDK) {
         apiSDK = sdk
@@ -23,7 +24,7 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
     
     override func request() -> Single<[ResponseSurvey]> {
         // TODO: Pagination
-        apiSDK.getSurveysList(pageNumber: 1, pageSize: 8)
+        apiSDK.getSurveysList(pageNumber: 1, pageSize: 8, returnCacheDataElseLoad: returnCacheDataElseLoad)
     }
     
     override func reload() {
@@ -33,6 +34,11 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
             .disposed(by: disposeBag)
     }
     
+    func reload(ignoreCachedData: Bool) {
+        returnCacheDataElseLoad = !ignoreCachedData
+        reload()
+    }
+  
     func logOut() -> Completable {
         apiSDK.logout()
     }

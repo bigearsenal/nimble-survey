@@ -94,12 +94,13 @@ struct NimbleSurveySDK: APISDK {
     }
     
     // MARK: - Surveys
-    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]> {
+    func getSurveysList(pageNumber: UInt, pageSize: UInt, returnCacheDataElseLoad: Bool = true) -> Single<[ResponseSurvey]> {
         request(
             method: .get,
             path: "/surveys?page[number]=\(pageNumber)&page[size]=\(pageSize)",
             shouldAddClientInfo: false,
-            decodedTo: Response<Surveys>.self
+            decodedTo: Response<Surveys>.self,
+            returnCacheDataElseLoad: returnCacheDataElseLoad
         )
         .map {$0.data?.compactMap {$0.attributes} ?? []}
     }
@@ -110,7 +111,8 @@ struct NimbleSurveySDK: APISDK {
             method: .get,
             path: "/me",
             shouldAddClientInfo: false,
-            decodedTo: Response<ResponseData<ResponseUser>>.self
+            decodedTo: Response<ResponseData<ResponseUser>>.self,
+            returnCacheDataElseLoad: true
         )
         .map {
             guard let user = $0.data?.attributes else {
@@ -145,7 +147,8 @@ struct NimbleSurveySDK: APISDK {
         parameters: [String: Any]? = nil,
         authorizationRequired: Bool = true,
         shouldAddClientInfo: Bool = true,
-        decodedTo: T.Type
+        decodedTo: T.Type,
+        returnCacheDataElseLoad: Bool = false
     ) -> Single<T>{
         var headers: HTTPHeaders = []
         
@@ -163,6 +166,22 @@ struct NimbleSurveySDK: APISDK {
             if authorizationRequired, let token = KeychainManager.token?.access_token {
                 headers.add(.authorization(bearerToken: token))
             }
+            guard let url = URL(string: apiUrlWithPath(path)) else {
+                return .error(NBError.requestIsInvalid)
+            }
+            
+            do {
+                var request = try URLRequest(url: url, method: method, headers: headers)
+                request.httpBody = parameters?.percentEncoded()
+                if returnCacheDataElseLoad {
+                    request.cachePolicy = .returnCacheDataElseLoad
+                } else {
+                    request.cachePolicy = .reloadIgnoringLocalCacheData
+                }
+            } catch {
+                return .error(error)
+            }
+            
             return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
                 .responseData()
                 .map {(response, data) -> T in
@@ -201,4 +220,27 @@ struct NimbleSurveySDK: APISDK {
             })
             .asCompletable()
     }
+}
+
+extension Dictionary {
+    func percentEncoded() -> Data? {
+        return map { key, value in
+            let escapedKey = "\(key)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            let escapedValue = "\(value)".addingPercentEncoding(withAllowedCharacters: .urlQueryValueAllowed) ?? ""
+            return escapedKey + "=" + escapedValue
+        }
+        .joined(separator: "&")
+        .data(using: .utf8)
+    }
+}
+
+extension CharacterSet {
+    static let urlQueryValueAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+
+        var allowed = CharacterSet.urlQueryAllowed
+        allowed.remove(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        return allowed
+    }()
 }
