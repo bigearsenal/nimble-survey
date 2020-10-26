@@ -27,7 +27,7 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
         apiSDK.getSurveysList(pageNumber: 1, pageSize: 8, returnCacheDataElseLoad: returnCacheDataElseLoad)
     }
     
-    override internal func reload() {
+    override func reload() {
         super.reload()
         self.apiSDK.getUserProfile()
             .subscribe(onSuccess: {self.userRelay.accept($0)})
@@ -38,9 +38,8 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
         returnCacheDataElseLoad = !ignoreCachedData
         reload()
     }
-    
-    func logOut() {
-        // ignore response
-        apiSDK.logout().subscribe().disposed(by: disposeBag)
+  
+    func logOut() -> Completable {
+        apiSDK.logout()
     }
 }
