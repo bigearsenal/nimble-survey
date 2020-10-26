@@ -226,6 +226,10 @@ class HomeVC: BaseViewController {
             UIButton(backgroundColor: .white, cornerRadius: 10, label: "retry", textColor: .black, contentInsets: UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10))
                 .onTap(self, action: #selector(reload))
         )
+        stackView.addArrangedSubview(
+            UIButton(cornerRadius: 10, label: "logout?", textColor: .white)
+                .onTap(self, action: #selector(avatarButtonDidTouch))
+        )
         return stackView
     }
     
