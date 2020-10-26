@@ -160,7 +160,9 @@ struct NimbleSurveySDK: APISDK {
         }
         
         let request: () -> Single<T> = {
-            headers.add(.authorization(bearerToken: KeychainManager.token!.access_token))
+            if authorizationRequired, let token = KeychainManager.token?.access_token {
+                headers.add(.authorization(bearerToken: token))
+            }
             return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
                 .responseData()
                 .map {(response, data) -> T in
