@@ -171,32 +171,31 @@ struct NimbleSurveySDK: APISDK {
             }
             
             do {
-                var request = try URLRequest(url: url, method: method, headers: headers)
-                request.httpBody = parameters?.percentEncoded()
+                var urlRequest = try URLRequest(url: url, method: method, headers: headers)
+                urlRequest.httpBody = parameters?.percentEncoded()
                 if returnCacheDataElseLoad {
-                    request.cachePolicy = .returnCacheDataElseLoad
+                    urlRequest.cachePolicy = .returnCacheDataElseLoad
                 } else {
-                    request.cachePolicy = .reloadIgnoringLocalCacheData
+                    urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
                 }
+                return RxAlamofire.request(urlRequest)
+                    .responseData()
+                    .map {(response, data) -> T in
+                        // Print
+                        debugPrint(String(data: data, encoding: .utf8) ?? "")
+                        
+                        // Print
+                        guard (200..<300).contains(response.statusCode) else {
+                            // Decode errror
+                            throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
+                        }
+                        return try JSONDecoder().decode(T.self, from: data)
+                    }
+                    .take(1)
+                    .asSingle()
             } catch {
                 return .error(error)
             }
-            
-            return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
-                .responseData()
-                .map {(response, data) -> T in
-                    // Print
-                    debugPrint(String(data: data, encoding: .utf8) ?? "")
-                    
-                    // Print
-                    guard (200..<300).contains(response.statusCode) else {
-                        // Decode errror
-                        throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
-                    }
-                    return try JSONDecoder().decode(T.self, from: data)
-                }
-                .take(1)
-                .asSingle()
         }
         
         if shouldRefreshToken {
