@@ -189,7 +189,12 @@ class HomeVC: BaseViewController {
     
     @objc func avatarButtonDidTouch() {
         showActionSheet(title: "Options", actions: [UIAlertAction(title: "Logout", style: .destructive, handler: { _ in
+            UIApplication.shared.keyWindow?.showIndetermineHudWithMessage("logging you out...")
             self.viewModel.logOut()
+                .subscribe(onCompleted: {
+                    UIApplication.shared.keyWindow?.hideHud()
+                })
+                .disposed(by: self.disposeBag)
         })])
     }
     

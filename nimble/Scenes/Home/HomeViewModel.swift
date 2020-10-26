@@ -33,8 +33,7 @@ class HomeViewModel: BaseViewModel<[ResponseSurvey]> {
             .disposed(by: disposeBag)
     }
     
-    func logOut() {
-        // ignore response
-        apiSDK.logout().subscribe().disposed(by: disposeBag)
+    func logOut() -> Completable {
+        apiSDK.logout()
     }
 }
