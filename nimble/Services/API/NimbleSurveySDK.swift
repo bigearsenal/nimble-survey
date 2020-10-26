@@ -151,18 +151,7 @@ struct NimbleSurveySDK: APISDK {
         
         var shouldRefreshToken = false
         if authorizationRequired {
-            guard let responseToken = KeychainManager.token else {
-                // TODO: - Logout
-                return self.logout()
-                    .andThen(.error(NBError.invalidToken))
-            }
-            let expiredDate = responseToken.created_at + responseToken.expires_in
-            
-            if expiredDate > UInt(Date().timeIntervalSince1970) {
-                headers = [.authorization(bearerToken: responseToken.access_token)]
-            } else {
-                shouldRefreshToken = true
-            }
+            shouldRefreshToken = !(KeychainManager.token?.isValid ?? false)
         }
         var parameters = parameters
         if shouldAddClientInfo {
@@ -170,26 +159,29 @@ struct NimbleSurveySDK: APISDK {
             parameters?["client_secret"] = clientSecret as NSString
         }
         
-        let request = RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
-            .responseData()
-            .map {(response, data) -> T in
-                // Print
-                debugPrint(String(data: data, encoding: .utf8) ?? "")
-                
-                // Print
-                guard (200..<300).contains(response.statusCode) else {
-                    // Decode errror
-                    throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
+        let request: () -> Single<T> = {
+            headers.add(.authorization(bearerToken: KeychainManager.token!.access_token))
+            return RxAlamofire.request(method, apiUrlWithPath(path), parameters: parameters, headers: headers)
+                .responseData()
+                .map {(response, data) -> T in
+                    // Print
+                    debugPrint(String(data: data, encoding: .utf8) ?? "")
+                    
+                    // Print
+                    guard (200..<300).contains(response.statusCode) else {
+                        // Decode errror
+                        throw (try? JSONDecoder().decode(ResponseErrors.self, from: data).errors?.first) ?? .unknown
+                    }
+                    return try JSONDecoder().decode(T.self, from: data)
                 }
-                return try JSONDecoder().decode(T.self, from: data)
-            }
-            .take(1)
-            .asSingle()
+                .take(1)
+                .asSingle()
+        }
         
         if shouldRefreshToken {
-            return refreshToken().andThen(request)
+            return refreshToken().andThen(request())
         } else {
-            return request
+            return request()
         }
     }
     

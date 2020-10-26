@@ -24,6 +24,11 @@ struct ResponseToken: Codable {
     let expires_in: UInt
     let refresh_token: String
     let created_at: UInt
+    
+    var isValid: Bool {
+        let expiredDate = created_at + expires_in
+        return expiredDate > UInt(Date().timeIntervalSince1970)
+    }
 }
 
 struct ResponseSurvey: Decodable, Equatable {

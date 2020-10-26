@@ -92,6 +92,10 @@ class HomeVC: BaseViewController {
             self.loadingView.layer.add(anim, forKey: "reload")
         }
         
+        // error view
+        view.addSubview(errorView)
+        errorView.autoCenterInSuperview()
+        
         // load data
         reload()
     }
