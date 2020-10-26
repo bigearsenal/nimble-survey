@@ -20,7 +20,7 @@ struct MockSDK: APISDK {
         Single<String>.just("").delay(.milliseconds(800), scheduler: MainScheduler.instance)
     }
     
-    func getSurveysList(pageNumber: UInt, pageSize: UInt) -> Single<[ResponseSurvey]> {
+    func getSurveysList(pageNumber: UInt, pageSize: UInt, returnCacheDataElseLoad: Bool) -> Single<[ResponseSurvey]> {
         do {
             return Single<[ResponseSurvey]>.just(try getMockList()).delay(.milliseconds(800), scheduler: MainScheduler.instance)
         } catch {

@@ -247,7 +247,7 @@ class HomeVC: BaseViewController {
 extension HomeVC: CAAnimationDelegate {
     func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         if anim == loadingView.layer.animation(forKey: "reload") {
-            reload()
+            viewModel.reload(ignoreCachedData: true)
             loadingView.isHidden = true
         }
     }
